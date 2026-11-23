@@ -120,8 +120,8 @@ const defaultContactInfo: ContactInfo = {
   githubUsername: 'lohithvarma2208-tech',
   linkedinUrl: 'https://www.linkedin.com/in/lohith-varma-3b4153421/',
   resumeUrl: '/resume.pdf',
-  leetcodeUsername: 'lohithvarma2208',
-  leetcodeUrl: 'https://leetcode.com'
+  leetcodeUsername: '_CodeMaster_1',
+  leetcodeUrl: 'https://leetcode.com/u/_CodeMaster_1/'
 }
 
 const defaultSkillsData: SkillsData = {
@@ -149,7 +149,7 @@ export const PortfolioDataProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       const updated = await syncAllLiveAccounts(
         contactInfo.githubUsername || 'lohithvarma2208-tech',
-        contactInfo.leetcodeUsername || 'lohithvarma2208',
+        contactInfo.leetcodeUsername || '_CodeMaster_1',
         contactInfo.linkedinUrl || 'https://www.linkedin.com/in/lohith-varma-3b4153421/'
       )
       setLiveAccounts(updated)
@@ -183,7 +183,13 @@ export const PortfolioDataProvider: React.FC<{ children: React.ReactNode }> = ({
           }
           setPersonalInfoState(parsed.personalInfo)
         }
-        if (parsed.contactInfo) setContactInfoState(parsed.contactInfo)
+        if (parsed.contactInfo) {
+          if (!parsed.contactInfo.leetcodeUsername || parsed.contactInfo.leetcodeUsername === 'lohithvarma2208') {
+            parsed.contactInfo.leetcodeUsername = '_CodeMaster_1'
+            parsed.contactInfo.leetcodeUrl = 'https://leetcode.com/u/_CodeMaster_1/'
+          }
+          setContactInfoState(parsed.contactInfo)
+        }
         if (parsed.projects && Array.isArray(parsed.projects)) setProjectsState(parsed.projects)
         if (parsed.skills?.categories) setSkillsState(parsed.skills)
         if (parsed.timeline && Array.isArray(parsed.timeline)) setTimelineState(parsed.timeline)

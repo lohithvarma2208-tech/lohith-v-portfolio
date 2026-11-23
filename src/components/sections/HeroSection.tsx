@@ -29,11 +29,13 @@ export const HeroSection: React.FC = () => {
       <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/[0.08] backdrop-blur-xl mb-4">
         <img
           src={personalInfo.photoUrl || '/lohith_varma.png'}
+          srcSet="/lohith_varma.png 1x, /lohith_varma_hd.png 2x"
           onError={(e) => {
             e.currentTarget.src = '/lohith_varma.png'
           }}
           alt={personalInfo.name}
-          className="w-5 h-5 rounded-full object-cover border border-cyan-400/50 shrink-0"
+          style={{ imageRendering: '-webkit-optimize-contrast' }}
+          className="w-5 h-5 rounded-full object-cover border border-cyan-400/50 shrink-0 filter contrast-[1.03]"
         />
         <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
         <span className="text-[11px] font-mono tracking-wider text-neutral-300 uppercase">
@@ -42,7 +44,7 @@ export const HeroSection: React.FC = () => {
       </div>
 
       {/* Main Title & Role */}
-      <div className="max-w-4xl mx-auto space-y-2">
+      <div className="max-w-4xl mx-auto space-y-3">
         <h1 className="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight text-white font-heading leading-tight">
           {personalInfo.name}
         </h1>
@@ -51,18 +53,18 @@ export const HeroSection: React.FC = () => {
           {personalInfo.title}
         </p>
 
-        <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto font-normal pt-2 leading-relaxed">
+        <p className="text-sm sm:text-base text-neutral-400 max-w-xl mx-auto font-normal pt-1 pb-2 leading-relaxed">
           {personalInfo.bio}
         </p>
       </div>
 
       {/* Moncy Dev Signature: Interactive 3D Developer Avatar (Tracks Mouse) */}
-      <div className="relative w-full max-w-lg mx-auto h-[360px] sm:h-[420px] md:h-[460px] my-3 flex items-center justify-center">
+      <div className="relative w-full max-w-lg mx-auto min-h-[340px] h-[340px] sm:h-[400px] md:h-[440px] my-4 flex items-center justify-center">
         <DeveloperAvatar3D />
       </div>
 
       {/* Precise Action Buttons */}
-      <div className="flex flex-wrap items-center justify-center gap-4 pt-3 relative z-20">
+      <div className="flex flex-wrap items-center justify-center gap-4 pt-3 pb-2 relative z-20">
         <button
           onClick={scrollToProjects}
           onMouseEnter={() => sound.playHover()}

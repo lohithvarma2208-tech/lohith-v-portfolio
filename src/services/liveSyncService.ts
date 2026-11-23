@@ -47,16 +47,16 @@ const defaultGitHubData: LiveGitHubData = {
 }
 
 const defaultLeetCodeData: LiveLeetCodeData = {
-  username: 'lohithvarma2208',
-  profileUrl: 'https://leetcode.com',
-  totalSolved: 654,
-  easySolved: 242,
-  mediumSolved: 331,
-  hardSolved: 81,
-  acceptanceRate: '68.4%',
-  ranking: 'Top 4.8% Global',
-  rating: 1942,
-  badge: 'Knight',
+  username: '_CodeMaster_1',
+  profileUrl: 'https://leetcode.com/u/_CodeMaster_1/',
+  totalSolved: 22,
+  easySolved: 21,
+  mediumSolved: 1,
+  hardSolved: 0,
+  acceptanceRate: '68.8%',
+  ranking: '#4,439,419',
+  rating: 1450,
+  badge: 'Algorithm Solver',
   lastUpdated: new Date().toISOString()
 }
 
@@ -153,11 +153,11 @@ export async function fetchLiveGitHub(username = 'lohithvarma2208-tech'): Promis
 /**
  * Fetch live LeetCode stats with graceful fallback
  */
-export async function fetchLiveLeetCode(username = 'lohithvarma2208'): Promise<LiveLeetCodeData> {
+export async function fetchLiveLeetCode(username = '_CodeMaster_1'): Promise<LiveLeetCodeData> {
   try {
     // Attempt fast query to public stats gateway
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 4000)
+    const timeoutId = setTimeout(() => controller.abort(), 5000)
 
     const res = await fetch(`https://alfa-leetcode-api.onrender.com/userProfile/${username}`, {
       signal: controller.signal
@@ -171,11 +171,11 @@ export async function fetchLiveLeetCode(username = 'lohithvarma2208'): Promise<L
         return {
           username,
           profileUrl: `https://leetcode.com/u/${username}/`,
-          totalSolved: Number(data.totalSolved) || defaultLeetCodeData.totalSolved,
-          easySolved: Number(data.easySolved) || defaultLeetCodeData.easySolved,
-          mediumSolved: Number(data.mediumSolved) || defaultLeetCodeData.mediumSolved,
-          hardSolved: Number(data.hardSolved) || defaultLeetCodeData.hardSolved,
-          acceptanceRate: data.acceptanceRate ? `${data.acceptanceRate}%` : defaultLeetCodeData.acceptanceRate,
+          totalSolved: Number(data.totalSolved) ?? defaultLeetCodeData.totalSolved,
+          easySolved: Number(data.easySolved) ?? defaultLeetCodeData.easySolved,
+          mediumSolved: Number(data.mediumSolved) ?? defaultLeetCodeData.mediumSolved,
+          hardSolved: Number(data.hardSolved) ?? defaultLeetCodeData.hardSolved,
+          acceptanceRate: data.acceptanceRate ? `${data.acceptanceRate}%` : '68.8%',
           ranking: data.ranking ? `#${Number(data.ranking).toLocaleString()}` : defaultLeetCodeData.ranking,
           rating: defaultLeetCodeData.rating,
           badge: defaultLeetCodeData.badge,
@@ -234,7 +234,7 @@ export function getCachedLiveAccounts(): LiveAccountsState {
  */
 export async function syncAllLiveAccounts(
   githubUser = 'lohithvarma2208-tech',
-  leetcodeUser = 'lohithvarma2208',
+  leetcodeUser = '_CodeMaster_1',
   linkedinUrl = 'https://www.linkedin.com/in/lohith-varma-3b4153421/'
 ): Promise<LiveAccountsState> {
   const [github, leetcode] = await Promise.all([

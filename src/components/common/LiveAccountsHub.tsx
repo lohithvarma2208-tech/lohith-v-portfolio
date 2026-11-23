@@ -162,14 +162,14 @@ export const LiveAccountsHub: React.FC<LiveAccountsHubProps> = ({
                     LeetCode Live
                   </h4>
                   <span className="text-[10px] font-mono text-neutral-400">
-                    @{leetcode?.username || 'lohithvarma2208'}
+                    @{leetcode?.username || '_CodeMaster_1'}
                   </span>
                 </div>
               </div>
 
               <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-[9px] font-mono text-amber-300">
                 <Flame className="w-3 h-3 text-amber-400" />
-                <span>{leetcode?.badge || 'Knight'}</span>
+                <span>{leetcode?.badge || 'Algorithm Solver'}</span>
               </span>
             </div>
 
@@ -177,19 +177,19 @@ export const LiveAccountsHub: React.FC<LiveAccountsHubProps> = ({
             <div className="grid grid-cols-3 gap-2 my-3 p-2.5 rounded-xl bg-black/40 border border-white/5 text-center">
               <div>
                 <span className="text-sm font-bold font-mono text-white block">
-                  {leetcode?.totalSolved ?? 654}
+                  {leetcode?.totalSolved ?? 22}
                 </span>
                 <span className="text-[9px] font-mono text-neutral-400 uppercase">Solved</span>
               </div>
               <div>
                 <span className="text-sm font-bold font-mono text-amber-300 block">
-                  {leetcode?.rating ?? 1942}
+                  {leetcode?.rating ?? 1450}
                 </span>
                 <span className="text-[9px] font-mono text-neutral-400 uppercase">Rating</span>
               </div>
               <div>
                 <span className="text-sm font-bold font-mono text-emerald-400 block">
-                  {leetcode?.ranking ?? 'Top 5%'}
+                  {leetcode?.ranking ?? '#4.4M'}
                 </span>
                 <span className="text-[9px] font-mono text-neutral-400 uppercase">Rank</span>
               </div>
@@ -197,16 +197,16 @@ export const LiveAccountsHub: React.FC<LiveAccountsHubProps> = ({
 
             {/* Difficulty Breakdown */}
             <div className="flex items-center justify-between gap-1 text-[10px] font-mono text-neutral-400 mb-3 px-1">
-              <span>Easy: <strong className="text-emerald-300">{leetcode?.easySolved ?? 242}</strong></span>
-              <span>Med: <strong className="text-amber-300">{leetcode?.mediumSolved ?? 331}</strong></span>
-              <span>Hard: <strong className="text-rose-400">{leetcode?.hardSolved ?? 81}</strong></span>
+              <span>Easy: <strong className="text-emerald-300">{leetcode?.easySolved ?? 21}</strong></span>
+              <span>Med: <strong className="text-amber-300">{leetcode?.mediumSolved ?? 1}</strong></span>
+              <span>Hard: <strong className="text-rose-400">{leetcode?.hardSolved ?? 0}</strong></span>
             </div>
           </div>
 
           <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between">
             <span className="text-[10px] font-mono text-neutral-500">Problems & Contests</span>
             <a
-              href={leetcode?.profileUrl || 'https://leetcode.com'}
+              href={leetcode?.profileUrl || 'https://leetcode.com/u/_CodeMaster_1/'}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-xs font-mono text-amber-300 hover:text-white transition-colors"

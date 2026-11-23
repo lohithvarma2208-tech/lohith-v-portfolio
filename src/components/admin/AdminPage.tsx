@@ -584,7 +584,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToSite }) => {
                   <label className="block text-xs font-mono text-neutral-400 mb-1">LeetCode Username</label>
                   <input
                     type="text"
-                    value={contactInfo.leetcodeUsername || 'lohithvarma2208'}
+                    value={contactInfo.leetcodeUsername || '_CodeMaster_1'}
                     onChange={(e) => updateContactInfo({ leetcodeUsername: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-xs font-mono text-white focus:outline-none focus:border-cyan-400"
                   />
@@ -594,7 +594,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToSite }) => {
                   <label className="block text-xs font-mono text-neutral-400 mb-1">LeetCode Profile URL</label>
                   <input
                     type="url"
-                    value={contactInfo.leetcodeUrl || 'https://leetcode.com'}
+                    value={contactInfo.leetcodeUrl || 'https://leetcode.com/u/_CodeMaster_1/'}
                     onChange={(e) => updateContactInfo({ leetcodeUrl: e.target.value })}
                     className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/10 text-xs font-mono text-white focus:outline-none focus:border-cyan-400"
                   />
@@ -655,11 +655,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToSite }) => {
                       <span className="text-amber-400 font-semibold text-[10px]">CONNECTED</span>
                     </div>
                     <p className="text-[11px] text-neutral-400">
-                      User: <strong className="text-white">@{liveAccounts.leetcode?.username || contactInfo.leetcodeUsername || 'lohithvarma2208'}</strong>
+                      User: <strong className="text-white">@{liveAccounts.leetcode?.username || contactInfo.leetcodeUsername || '_CodeMaster_1'}</strong>
                     </p>
                     <div className="flex items-center justify-between text-[10px] text-neutral-400 pt-1 border-t border-white/5">
-                      <span>{liveAccounts.leetcode?.totalSolved ?? 654} Solved</span>
-                      <span>{liveAccounts.leetcode?.badge ?? 'Knight'}</span>
+                      <span>{liveAccounts.leetcode?.totalSolved ?? 22} Solved</span>
+                      <span>{liveAccounts.leetcode?.badge ?? 'Algorithm Solver'}</span>
                     </div>
                   </div>
 

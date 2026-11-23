@@ -36,11 +36,13 @@ export const TimelineSection: React.FC = () => {
             <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden border border-white/10 shadow-2xl group">
               <img
                 src={personalInfo.photoUrl || '/lohith_varma.png'}
+                srcSet="/lohith_varma.png 1x, /lohith_varma_hd.png 2x"
                 onError={(e) => {
                   e.currentTarget.src = '/lohith_varma.png'
                 }}
                 alt={personalInfo.name}
-                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                style={{ imageRendering: '-webkit-optimize-contrast' }}
+                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500 filter contrast-[1.03] brightness-[1.01]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
 

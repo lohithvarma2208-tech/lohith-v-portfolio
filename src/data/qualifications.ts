@@ -247,7 +247,7 @@ export const defaultHonors: HonorAward[] = [
     description:
       'Demonstrated algorithmic mastery across Graphs, Dynamic Programming, Segment Trees, and Concurrency in C++ & Python.',
     badge: 'Competitive Programming',
-    link: 'https://leetcode.com'
+    link: 'https://leetcode.com/u/_CodeMaster_1/'
   },
   {
     id: 'honor-2',

@@ -78,11 +78,13 @@ export const ContactSection: React.FC = () => {
               <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-cyan-400/40 shadow-lg shrink-0">
                 <img
                   src={personalInfo.photoUrl || '/lohith_varma.png'}
+                  srcSet="/lohith_varma.png 1x, /lohith_varma_hd.png 2x"
                   onError={(e) => {
                     e.currentTarget.src = '/lohith_varma.png'
                   }}
                   alt={personalInfo.name}
-                  className="w-full h-full object-cover"
+                  style={{ imageRendering: '-webkit-optimize-contrast' }}
+                  className="w-full h-full object-cover filter contrast-[1.03] brightness-[1.01]"
                 />
               </div>
               <div>

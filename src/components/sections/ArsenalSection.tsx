@@ -478,14 +478,14 @@ export const ArsenalSection: React.FC = () => {
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
               <span className="text-amber-300 font-semibold uppercase">LeetCode Live Telemetry:</span>
-              <span className="text-neutral-300">@{liveAccounts.leetcode?.username || 'lohithvarma2208'}</span>
+              <span className="text-neutral-300">@{liveAccounts.leetcode?.username || '_CodeMaster_1'}</span>
               <span className="text-neutral-500">•</span>
-              <span className="text-emerald-400">{liveAccounts.leetcode?.totalSolved ?? 654} Solved</span>
+              <span className="text-emerald-400">{liveAccounts.leetcode?.totalSolved ?? 22} Solved</span>
               <span className="text-neutral-500">•</span>
-              <span className="text-amber-300">Rating {liveAccounts.leetcode?.rating ?? 1942} ({liveAccounts.leetcode?.badge ?? 'Knight'})</span>
+              <span className="text-amber-300">{liveAccounts.leetcode?.badge ?? 'Algorithm Solver'}</span>
             </div>
             <a
-              href={liveAccounts.leetcode?.profileUrl || 'https://leetcode.com'}
+              href={liveAccounts.leetcode?.profileUrl || 'https://leetcode.com/u/_CodeMaster_1/'}
               target="_blank"
               rel="noopener noreferrer"
               className="text-amber-400 hover:text-white flex items-center gap-1 transition-colors"
