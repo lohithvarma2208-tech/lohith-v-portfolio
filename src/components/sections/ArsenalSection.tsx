@@ -33,15 +33,25 @@ export const ArsenalSection: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
 
   const skillCategories: SkillCategory[] = skills.categories || []
+  const domainList = (skills.domains && skills.domains.length > 0)
+    ? skills.domains
+    : ['Systems', 'Distributed', 'Backend', 'Graphics', 'Cloud']
 
   const handleTabChange = (tab: OptionTab) => {
     sound.playClick()
     setActiveTab(tab)
   }
 
-  // Filter skills by search query and category
+  // Filter skills by search query and category/domain
   const filteredCategories = skillCategories
-    .filter((cat: SkillCategory) => (selectedCategory === 'all' ? true : cat.title.toLowerCase().includes(selectedCategory.toLowerCase())))
+    .filter((cat: SkillCategory) => {
+      if (selectedCategory === 'all') return true
+      const target = selectedCategory.toLowerCase().trim()
+      const titleMatches = cat.title.toLowerCase().includes(target)
+      const domainMatches = cat.domain ? cat.domain.toLowerCase().includes(target) : false
+      const skillMatches = cat.skills.some((s: string) => s.toLowerCase().includes(target))
+      return titleMatches || domainMatches || skillMatches
+    })
     .map((cat: SkillCategory) => {
       if (!skillSearch.trim()) return cat
       const filtered = cat.skills.filter((s: string) =>
@@ -174,20 +184,33 @@ export const ArsenalSection: React.FC = () => {
           {/* Filter and Search Bar */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/[0.06]">
             <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
-              {['all', 'systems', 'distributed', 'backend', 'graphics', 'cloud'].map((catKey) => (
+              <button
+                onClick={() => {
+                  sound.playClick()
+                  setSelectedCategory('all')
+                }}
+                className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors cursor-pointer shrink-0 ${
+                  selectedCategory === 'all'
+                    ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold'
+                    : 'text-neutral-400 hover:text-white hover:bg-white/[0.04]'
+                }`}
+              >
+                All Domains
+              </button>
+              {domainList.map((dom) => (
                 <button
-                  key={catKey}
+                  key={dom}
                   onClick={() => {
                     sound.playClick()
-                    setSelectedCategory(catKey)
+                    setSelectedCategory(dom)
                   }}
-                  className={`px-3 py-1 rounded-lg text-xs font-mono capitalize transition-colors cursor-pointer ${
-                    selectedCategory === catKey
+                  className={`px-3 py-1 rounded-lg text-xs font-mono transition-colors cursor-pointer shrink-0 ${
+                    selectedCategory.toLowerCase() === dom.toLowerCase()
                       ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold'
                       : 'text-neutral-400 hover:text-white hover:bg-white/[0.04]'
                   }`}
                 >
-                  {catKey === 'all' ? 'All Domains' : catKey}
+                  {dom}
                 </button>
               ))}
             </div>
@@ -235,6 +258,24 @@ export const ArsenalSection: React.FC = () => {
               </div>
             ))}
           </div>
+
+          {filteredCategories.length === 0 && (
+            <div className="py-12 text-center rounded-2xl bg-[#090b12]/50 border border-white/[0.06] p-8">
+              <p className="text-sm font-mono text-neutral-400 mb-3">
+                No technologies found matching domain "{selectedCategory}".
+              </p>
+              <button
+                onClick={() => {
+                  sound.playClick()
+                  setSelectedCategory('all')
+                  setSkillSearch('')
+                }}
+                className="px-4 py-2 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-mono hover:bg-cyan-500/20 transition-colors cursor-pointer"
+              >
+                Reset Filters (Show All Domains)
+              </button>
+            </div>
+          )}
         </div>
       )}
 

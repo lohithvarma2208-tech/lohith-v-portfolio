@@ -28,7 +28,13 @@ import {
   Server,
   Globe,
   ExternalLink,
-  Copy
+  Copy,
+  ArrowUp,
+  ArrowDown,
+  ArrowRight,
+  Tag,
+  Sparkles,
+  Layers
 } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '../common/Icons'
 import { usePortfolioData } from '../../context/PortfolioDataContext'
@@ -40,7 +46,8 @@ import type {
   WorkExperience,
   Certification,
   OpenSourceContribution,
-  HonorAward
+  HonorAward,
+  SkillCategory
 } from '../../types'
 
 interface AdminPageProps {
@@ -134,6 +141,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToSite }) => {
   const [editingHonor, setEditingHonor] = useState<HonorAward | null>(null)
   const [isNewHonor, setIsNewHonor] = useState<boolean>(false)
 
+  // Domain Filters & Skills State
+  const [newDomainInput, setNewDomainInput] = useState<string>('')
+  const [newSkillInputs, setNewSkillInputs] = useState<{ [categoryIdx: number]: string }>({})
+  const [showAddCategoryModal, setShowAddCategoryModal] = useState<boolean>(false)
+  const [newCategoryTitle, setNewCategoryTitle] = useState<string>('')
+  const [newCategoryDomain, setNewCategoryDomain] = useState<string>('')
+
   // JSON Import state
   const [importJsonText, setImportJsonText] = useState<string>('')
   const [importMsg, setImportMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
@@ -161,6 +175,105 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToSite }) => {
     sound.playSuccess()
     setSaveToast(msg)
     setTimeout(() => setSaveToast(null), 3000)
+  }
+
+  // Domain Filter Navigation & Skills Management Handlers
+  const currentDomains = (skills.domains && skills.domains.length > 0)
+    ? skills.domains
+    : ['Systems', 'Distributed', 'Backend', 'Graphics', 'Cloud']
+
+  const handleAddDomain = () => {
+    const trimmed = newDomainInput.trim()
+    if (!trimmed) return
+    if (currentDomains.some((d) => d.toLowerCase() === trimmed.toLowerCase())) {
+      showToast(`Domain "${trimmed}" already exists`)
+      return
+    }
+    const updated = [...currentDomains, trimmed]
+    updateSkills({ ...skills, domains: updated })
+    setNewDomainInput('')
+    showToast(`Added domain "${trimmed}"`)
+  }
+
+  const handleUpdateDomain = (index: number, newName: string) => {
+    const updated = [...currentDomains]
+    updated[index] = newName
+    updateSkills({ ...skills, domains: updated })
+  }
+
+  const handleDeleteDomain = (index: number) => {
+    const domainName = currentDomains[index]
+    const updated = currentDomains.filter((_, i) => i !== index)
+    updateSkills({ ...skills, domains: updated })
+    showToast(`Removed domain "${domainName}"`)
+  }
+
+  const handleMoveDomain = (index: number, direction: 'left' | 'right') => {
+    if (direction === 'left' && index === 0) return
+    if (direction === 'right' && index === currentDomains.length - 1) return
+    const targetIdx = direction === 'left' ? index - 1 : index + 1
+    const updated = [...currentDomains]
+    const temp = updated[index]
+    updated[index] = updated[targetIdx]
+    updated[targetIdx] = temp
+    updateSkills({ ...skills, domains: updated })
+    sound.playClick()
+  }
+
+  const handleResetDomains = () => {
+    const defaultList = ['Systems', 'Distributed', 'Backend', 'Graphics', 'Cloud']
+    updateSkills({ ...skills, domains: defaultList })
+    showToast('Reset domains to standard defaults')
+  }
+
+  const handleAddCategorySubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!newCategoryTitle.trim()) return
+    const newCat: SkillCategory = {
+      title: newCategoryTitle.trim(),
+      skills: [],
+      domain: newCategoryDomain.trim() || undefined
+    }
+    const updated = [...skills.categories, newCat]
+    updateSkills({ ...skills, categories: updated })
+    setNewCategoryTitle('')
+    setNewCategoryDomain('')
+    setShowAddCategoryModal(false)
+    showToast(`Created category "${newCat.title}"`)
+  }
+
+  const handleDeleteCategory = (cIdx: number) => {
+    const catTitle = skills.categories[cIdx].title
+    if (window.confirm(`Are you sure you want to delete category "${catTitle}" and all its skills?`)) {
+      const next = skills.categories.filter((_, i) => i !== cIdx)
+      updateSkills({ ...skills, categories: next })
+      showToast(`Deleted category "${catTitle}"`)
+    }
+  }
+
+  const handleMoveCategory = (cIdx: number, direction: 'up' | 'down') => {
+    if (direction === 'up' && cIdx === 0) return
+    if (direction === 'down' && cIdx === skills.categories.length - 1) return
+    const targetIdx = direction === 'up' ? cIdx - 1 : cIdx + 1
+    const next = [...skills.categories]
+    const temp = next[cIdx]
+    next[cIdx] = next[targetIdx]
+    next[targetIdx] = temp
+    updateSkills({ ...skills, categories: next })
+    sound.playClick()
+  }
+
+  const handleAddSkillInline = (cIdx: number) => {
+    const text = newSkillInputs[cIdx]?.trim()
+    if (!text) return
+    const next = [...skills.categories]
+    next[cIdx] = {
+      ...next[cIdx],
+      skills: [...next[cIdx].skills, text]
+    }
+    updateSkills({ ...skills, categories: next })
+    setNewSkillInputs((prev) => ({ ...prev, [cIdx]: '' }))
+    showToast(`Added "${text}" to ${next[cIdx].title}`)
   }
 
   // Handle Photo File Upload & Canvas Resizing
@@ -802,63 +915,352 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToSite }) => {
             </div>
           )}
 
-          {/* TAB 4: SKILL STACK */}
+          {/* TAB 4: SKILL STACK & DOMAIN FILTERS */}
           {activeTab === 'skills' && (
-            <div className="space-y-6 animate-fadeIn">
-              <div className="border-b border-white/[0.08] pb-4">
-                <h2 className="text-xl font-bold font-heading text-white">Skill Stack Matrix</h2>
-                <p className="text-xs text-neutral-400 mt-0.5">
-                  Organize domain categories and specific technologies displayed in your portfolio.
-                </p>
+            <div className="space-y-8 animate-fadeIn">
+              {/* Header */}
+              <div className="border-b border-white/[0.08] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-xl font-bold font-heading text-white flex items-center gap-2">
+                    <Cpu className="w-5 h-5 text-cyan-400" />
+                    Skill Stack & Domain Filters
+                  </h2>
+                  <p className="text-xs text-neutral-400 mt-0.5">
+                    Manage the domain navigation pills shown above your technical arsenal on the homepage, and customize categories and technologies.
+                  </p>
+                </div>
+
+                <button
+                  onClick={() => {
+                    sound.playClick()
+                    setShowAddCategoryModal(true)
+                  }}
+                  className="px-3.5 py-1.5 rounded-xl bg-cyan-500 text-black font-semibold text-xs font-mono flex items-center gap-1.5 hover:bg-cyan-400 transition-colors cursor-pointer self-start sm:self-auto"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  Add Skill Category
+                </button>
               </div>
 
-              <div className="space-y-4">
-                {skills.categories.map((cat, cIdx) => (
-                  <div key={cIdx} className="p-4 rounded-xl bg-black/30 border border-white/[0.06] space-y-2">
-                    <input
-                      type="text"
-                      value={cat.title}
-                      onChange={(e) => {
-                        const next = [...skills.categories]
-                        next[cIdx] = { ...cat, title: e.target.value }
-                        updateSkills({ ...skills, categories: next })
-                      }}
-                      className="text-xs font-mono font-bold text-cyan-400 bg-transparent border-b border-white/10 pb-1 focus:outline-none w-full"
-                    />
+              {/* SECTION 1: HOMEPAGE DOMAIN FILTER PILLS (Directly addressing the user's uploaded picture!) */}
+              <div className="p-5 rounded-2xl bg-[#080a10] border border-cyan-500/20 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.06] pb-3">
+                  <div>
+                    <h3 className="text-sm font-bold font-mono text-cyan-300 flex items-center gap-2">
+                      <Tag className="w-4 h-4 text-cyan-400" />
+                      Domain Filter Navigation (Homepage Pills)
+                    </h3>
+                    <p className="text-[11px] text-neutral-400 mt-0.5 font-mono">
+                      These domain pills appear directly above your technical skills on the website. Visitors click them to filter.
+                    </p>
+                  </div>
 
-                    <div className="flex flex-wrap gap-1.5 pt-2">
-                      {cat.skills.map((sk: string, sIdx: number) => (
-                        <div key={sIdx} className="flex items-center gap-1 px-2 py-1 rounded bg-white/[0.05] border border-white/10 text-xs font-mono text-neutral-300">
-                          <span>{sk}</span>
+                  <button
+                    onClick={handleResetDomains}
+                    className="text-[11px] font-mono text-neutral-400 hover:text-cyan-300 flex items-center gap-1 cursor-pointer transition-colors"
+                  >
+                    <RotateCcw className="w-3 h-3" />
+                    Restore Default Pills
+                  </button>
+                </div>
+
+                {/* Live Preview Box */}
+                <div className="p-4 rounded-xl bg-black/60 border border-white/[0.08] space-y-2">
+                  <div className="flex items-center justify-between text-[10px] font-mono text-neutral-500">
+                    <span className="flex items-center gap-1 text-cyan-400">
+                      <Sparkles className="w-3 h-3" /> LIVE PREVIEW (MATCHES HOMEPAGE ARSENAL)
+                    </span>
+                    <span>All Domains is permanent default</span>
+                  </div>
+                  <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+                    <span className="px-3 py-1 rounded-lg text-xs font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-semibold shrink-0 shadow-[0_0_12px_rgba(6,182,212,0.25)]">
+                      All Domains
+                    </span>
+                    {currentDomains.map((dom, dIdx) => (
+                      <span
+                        key={dIdx}
+                        className="px-3 py-1 rounded-lg text-xs font-mono text-neutral-400 bg-white/[0.04] border border-white/5 shrink-0"
+                      >
+                        {dom}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Editable Domain Cards */}
+                <div className="space-y-2">
+                  <label className="block text-xs font-mono text-neutral-300 uppercase tracking-wider">
+                    Configured Domain Pills ({currentDomains.length})
+                  </label>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+                    {/* Fixed All Domains pill */}
+                    <div className="p-3 rounded-xl bg-cyan-500/[0.06] border border-cyan-500/20 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+                        <span className="text-xs font-mono font-bold text-cyan-300">All Domains</span>
+                      </div>
+                      <span className="text-[10px] font-mono text-cyan-500/70 bg-cyan-500/10 px-2 py-0.5 rounded">
+                        Default
+                      </span>
+                    </div>
+
+                    {/* User editable domain pills */}
+                    {currentDomains.map((dom, idx) => (
+                      <div
+                        key={idx}
+                        className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:border-cyan-500/30 transition-all flex items-center justify-between gap-2 group"
+                      >
+                        <div className="flex items-center gap-2 flex-1 min-w-0">
+                          <span className="text-[10px] font-mono text-neutral-500 select-none">
+                            #{idx + 1}
+                          </span>
+                          <input
+                            type="text"
+                            value={dom}
+                            onChange={(e) => handleUpdateDomain(idx, e.target.value)}
+                            className="bg-transparent border-b border-transparent focus:border-cyan-400 text-xs font-mono text-white focus:outline-none w-full truncate py-0.5"
+                            placeholder="Domain Name"
+                          />
+                        </div>
+
+                        <div className="flex items-center gap-1 shrink-0">
                           <button
-                            onClick={() => {
-                              const next = [...skills.categories]
-                              next[cIdx].skills = next[cIdx].skills.filter((_: string, idx: number) => idx !== sIdx)
-                              updateSkills({ ...skills, categories: next })
-                            }}
-                            className="text-neutral-500 hover:text-red-400 ml-1 cursor-pointer"
+                            onClick={() => handleMoveDomain(idx, 'left')}
+                            disabled={idx === 0}
+                            title="Move pill left"
+                            className="p-1 text-neutral-400 hover:text-white disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed transition-colors"
                           >
-                            ×
+                            <ArrowLeft className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => handleMoveDomain(idx, 'right')}
+                            disabled={idx === currentDomains.length - 1}
+                            title="Move pill right"
+                            className="p-1 text-neutral-400 hover:text-white disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed transition-colors"
+                          >
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => handleDeleteDomain(idx)}
+                            title="Delete domain pill"
+                            className="p-1 text-neutral-500 hover:text-red-400 cursor-pointer transition-colors ml-0.5"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>
-                      ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
+                {/* Add New Domain Pill Bar */}
+                <div className="pt-2 flex flex-col sm:flex-row items-center gap-2">
+                  <input
+                    type="text"
+                    value={newDomainInput}
+                    onChange={(e) => setNewDomainInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        e.preventDefault()
+                        handleAddDomain()
+                      }
+                    }}
+                    placeholder="Type new domain name (e.g. AI & ML, Mobile, DevOps, Security)..."
+                    className="w-full sm:flex-1 px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs font-mono text-white placeholder-neutral-500 focus:outline-none focus:border-cyan-400 transition-colors"
+                  />
+                  <button
+                    onClick={handleAddDomain}
+                    disabled={!newDomainInput.trim()}
+                    className="w-full sm:w-auto px-4 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 text-xs font-mono flex items-center justify-center gap-1.5 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+                  >
+                    <Plus className="w-3.5 h-3.5" />
+                    Add Domain Pill
+                  </button>
+                </div>
+              </div>
+
+              {/* SECTION 2: SKILL CATEGORIES & TECH STACK */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold font-mono text-white flex items-center gap-2">
+                      <Layers className="w-4 h-4 text-cyan-400" />
+                      Skill Categories ({skills.categories.length})
+                    </h3>
+                    <p className="text-[11px] text-neutral-400 font-mono mt-0.5">
+                      Organize specific technologies into categorized cards.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Add Category Form (Modal toggle) */}
+                {showAddCategoryModal && (
+                  <form
+                    onSubmit={handleAddCategorySubmit}
+                    className="p-5 rounded-2xl bg-cyan-500/[0.04] border border-cyan-500/30 space-y-3 animate-fadeIn"
+                  >
+                    <h4 className="text-xs font-mono font-bold text-cyan-300 uppercase tracking-wider flex items-center gap-1.5">
+                      <Plus className="w-3.5 h-3.5" />
+                      Create New Skill Category
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-[11px] font-mono text-neutral-400 mb-1">
+                          Category Title *
+                        </label>
+                        <input
+                          type="text"
+                          value={newCategoryTitle}
+                          onChange={(e) => setNewCategoryTitle(e.target.value)}
+                          placeholder="e.g. AI & Machine Learning, Mobile Development..."
+                          required
+                          className="w-full px-3 py-1.5 rounded-lg bg-black/50 border border-white/10 text-xs font-mono text-white focus:outline-none focus:border-cyan-400"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[11px] font-mono text-neutral-400 mb-1">
+                          Filter Domain Tag (Optional)
+                        </label>
+                        <select
+                          value={newCategoryDomain}
+                          onChange={(e) => setNewCategoryDomain(e.target.value)}
+                          className="w-full px-3 py-1.5 rounded-lg bg-[#0d111a] border border-white/10 text-xs font-mono text-white focus:outline-none focus:border-cyan-400"
+                        >
+                          <option value="">Auto-match keywords</option>
+                          {currentDomains.map((dom, dIdx) => (
+                            <option key={dIdx} value={dom}>{dom}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 justify-end pt-1">
                       <button
-                        onClick={() => {
-                          const newSkill = prompt('Enter new technology name:')
-                          if (newSkill?.trim()) {
-                            const next = [...skills.categories]
-                            next[cIdx].skills = [...next[cIdx].skills, newSkill.trim()]
-                            updateSkills({ ...skills, categories: next })
-                          }
-                        }}
-                        className="px-2 py-1 rounded bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/20 text-xs font-mono transition-colors cursor-pointer"
+                        type="button"
+                        onClick={() => setShowAddCategoryModal(false)}
+                        className="px-3 py-1.5 rounded-lg bg-white/[0.05] hover:bg-white/10 text-neutral-300 text-xs font-mono cursor-pointer"
                       >
-                        + Add Skill
+                        Cancel
+                      </button>
+                      <button
+                        type="submit"
+                        className="px-4 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-semibold text-xs font-mono cursor-pointer"
+                      >
+                        Create Category
                       </button>
                     </div>
-                  </div>
-                ))}
+                  </form>
+                )}
+
+                {/* Categories Cards List */}
+                <div className="space-y-4">
+                  {skills.categories.map((cat, cIdx) => (
+                    <div key={cIdx} className="p-4 rounded-xl bg-black/40 border border-white/[0.08] hover:border-white/20 transition-all space-y-3">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/[0.06] pb-2">
+                        <div className="flex items-center gap-2 flex-1">
+                          <div className="flex flex-col">
+                            <button
+                              onClick={() => handleMoveCategory(cIdx, 'up')}
+                              disabled={cIdx === 0}
+                              className="text-neutral-500 hover:text-white disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
+                              title="Move category up"
+                            >
+                              <ArrowUp className="w-3 h-3" />
+                            </button>
+                            <button
+                              onClick={() => handleMoveCategory(cIdx, 'down')}
+                              disabled={cIdx === skills.categories.length - 1}
+                              className="text-neutral-500 hover:text-white disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
+                              title="Move category down"
+                            >
+                              <ArrowDown className="w-3 h-3" />
+                            </button>
+                          </div>
+                          <input
+                            type="text"
+                            value={cat.title}
+                            onChange={(e) => {
+                              const next = [...skills.categories]
+                              next[cIdx] = { ...cat, title: e.target.value }
+                              updateSkills({ ...skills, categories: next })
+                            }}
+                            className="text-xs font-mono font-bold text-cyan-400 bg-transparent border-b border-transparent focus:border-cyan-400/50 pb-0.5 focus:outline-none flex-1"
+                          />
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          {/* Domain Selector */}
+                          <select
+                            value={cat.domain || ''}
+                            onChange={(e) => {
+                              const next = [...skills.categories]
+                              next[cIdx] = { ...cat, domain: e.target.value || undefined }
+                              updateSkills({ ...skills, categories: next })
+                            }}
+                            className="px-2 py-0.5 rounded bg-white/[0.05] border border-white/10 text-[10px] font-mono text-neutral-400 focus:outline-none focus:text-cyan-300"
+                          >
+                            <option value="">Domain: Auto</option>
+                            {currentDomains.map((dom, dIdx) => (
+                              <option key={dIdx} value={dom}>Domain: {dom}</option>
+                            ))}
+                          </select>
+
+                          <button
+                            onClick={() => handleDeleteCategory(cIdx)}
+                            className="text-neutral-500 hover:text-red-400 p-1 cursor-pointer transition-colors"
+                            title="Delete category"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Skills inside category */}
+                      <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                        {cat.skills.map((sk: string, sIdx: number) => (
+                          <div key={sIdx} className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/10 text-xs font-mono text-neutral-300 group hover:border-cyan-500/30 transition-all">
+                            <span>{sk}</span>
+                            <button
+                              onClick={() => {
+                                const next = [...skills.categories]
+                                next[cIdx].skills = next[cIdx].skills.filter((_: string, idx: number) => idx !== sIdx)
+                                updateSkills({ ...skills, categories: next })
+                              }}
+                              className="text-neutral-500 hover:text-red-400 ml-1 cursor-pointer"
+                              title="Remove skill"
+                            >
+                              ×
+                            </button>
+                          </div>
+                        ))}
+
+                        {/* Inline Add Skill */}
+                        <div className="flex items-center gap-1">
+                          <input
+                            type="text"
+                            placeholder="+ Add tech..."
+                            value={newSkillInputs[cIdx] || ''}
+                            onChange={(e) => setNewSkillInputs({ ...newSkillInputs, [cIdx]: e.target.value })}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault()
+                                handleAddSkillInline(cIdx)
+                              }
+                            }}
+                            className="px-2 py-1 rounded-lg bg-black/60 border border-white/10 text-xs font-mono text-white placeholder-neutral-600 focus:outline-none focus:border-cyan-400 w-28 sm:w-32"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleAddSkillInline(cIdx)}
+                            className="px-2 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/20 text-xs font-mono cursor-pointer transition-colors"
+                          >
+                            Add
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}

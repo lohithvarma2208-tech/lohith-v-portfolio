@@ -49,6 +49,7 @@ export interface PhysicsSkillBall {
 export interface SkillsData {
   physicsBalls?: PhysicsSkillBall[]
   categories: SkillCategory[]
+  domains?: string[]
 }
 
 export interface PortfolioDataContextType {
@@ -124,8 +125,11 @@ const defaultContactInfo: ContactInfo = {
   leetcodeUrl: 'https://leetcode.com/u/_CodeMaster_1/'
 }
 
+export const defaultDomains = ['Systems', 'Distributed', 'Backend', 'Graphics', 'Cloud']
+
 const defaultSkillsData: SkillsData = {
-  categories: defaultSkillCategories
+  categories: defaultSkillCategories,
+  domains: defaultDomains
 }
 
 const STORAGE_KEY = 'lv_portfolio_master_data_v3'
@@ -195,7 +199,15 @@ export const PortfolioDataProvider: React.FC<{ children: React.ReactNode }> = ({
           setContactInfoState(parsed.contactInfo)
         }
         if (parsed.projects && Array.isArray(parsed.projects)) setProjectsState(parsed.projects)
-        if (parsed.skills?.categories) setSkillsState(parsed.skills)
+        if (parsed.skills?.categories) {
+          setSkillsState({
+            ...defaultSkillsData,
+            ...parsed.skills,
+            domains: Array.isArray(parsed.skills.domains) && parsed.skills.domains.length > 0
+              ? parsed.skills.domains
+              : defaultDomains
+          })
+        }
         if (parsed.timeline && Array.isArray(parsed.timeline)) setTimelineState(parsed.timeline)
         if (parsed.experiences && Array.isArray(parsed.experiences)) setExperiencesState(parsed.experiences)
         if (parsed.certifications && Array.isArray(parsed.certifications)) setCertificationsState(parsed.certifications)

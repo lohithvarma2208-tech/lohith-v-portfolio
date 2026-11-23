@@ -37,6 +37,7 @@ export interface Essay {
 export interface SkillCategory {
   title: string
   skills: string[]
+  domain?: string
 }
 
 export interface SkillItem {
