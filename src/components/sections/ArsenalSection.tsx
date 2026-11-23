@@ -282,7 +282,12 @@ export const ArsenalSection: React.FC = () => {
       {/* --- TAB CONTENT 2: WORK EXPERIENCE --- */}
       {activeTab === 'experience' && (
         <div className="space-y-6 animate-fadeIn">
-          <div className="grid grid-cols-1 gap-6">
+          {experiences.length === 0 ? (
+            <div className="py-16 text-center rounded-2xl bg-[#090b12]/50 border border-white/[0.06] p-8">
+              <p className="text-sm font-mono text-neutral-400">No work experience listed.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-6">
             {experiences.map((exp) => (
               <div
                 key={exp.id}
@@ -350,71 +355,78 @@ export const ArsenalSection: React.FC = () => {
               </div>
             ))}
           </div>
+          )}
         </div>
       )}
 
       {/* --- TAB CONTENT 3: CERTIFICATIONS --- */}
       {activeTab === 'certifications' && (
         <div className="space-y-6 animate-fadeIn">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {certifications.map((cert) => (
-              <div
-                key={cert.id}
-                className="group p-6 rounded-2xl bg-[#090b12]/80 border border-white/[0.08] hover:border-cyan-500/40 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-[11px] font-mono tracking-wider uppercase text-cyan-400 font-semibold flex items-center gap-1.5">
-                      <Sparkles className="w-3 h-3 text-cyan-400" />
-                      <span>{cert.issuer}</span>
-                    </span>
-                    <span className="text-[11px] font-mono text-neutral-400">
-                      Issued: {cert.issueDate}
-                    </span>
-                  </div>
-
-                  <h3 className="text-base sm:text-lg font-bold font-heading text-white mb-2 leading-snug">
-                    {cert.title}
-                  </h3>
-
-                  {cert.credentialId && (
-                    <p className="text-[11px] font-mono text-neutral-400 mb-4">
-                      ID: <span className="text-neutral-300">{cert.credentialId}</span>
-                    </p>
-                  )}
-
-                  {/* Skills Covered */}
-                  <div className="flex flex-wrap gap-1.5 mb-5">
-                    {cert.skills.map((s, sIdx) => (
-                      <span
-                        key={sIdx}
-                        className="px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/[0.06] text-[10px] font-mono text-neutral-300"
-                      >
-                        {s}
+          {certifications.length === 0 ? (
+            <div className="py-16 text-center rounded-2xl bg-[#090b12]/50 border border-white/[0.06] p-8">
+              <p className="text-sm font-mono text-neutral-400">No certifications listed.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {certifications.map((cert) => (
+                <div
+                  key={cert.id}
+                  className="group p-6 rounded-2xl bg-[#090b12]/80 border border-white/[0.08] hover:border-cyan-500/40 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className="text-[11px] font-mono tracking-wider uppercase text-cyan-400 font-semibold flex items-center gap-1.5">
+                        <Sparkles className="w-3 h-3 text-cyan-400" />
+                        <span>{cert.issuer}</span>
                       </span>
-                    ))}
+                      <span className="text-[11px] font-mono text-neutral-400">
+                        Issued: {cert.issueDate}
+                      </span>
+                    </div>
+
+                    <h3 className="text-base sm:text-lg font-bold font-heading text-white mb-2 leading-snug">
+                      {cert.title}
+                    </h3>
+
+                    {cert.credentialId && (
+                      <p className="text-[11px] font-mono text-neutral-400 mb-4">
+                        ID: <span className="text-neutral-300">{cert.credentialId}</span>
+                      </p>
+                    )}
+
+                    {/* Skills Covered */}
+                    <div className="flex flex-wrap gap-1.5 mb-5">
+                      {cert.skills.map((s, sIdx) => (
+                        <span
+                          key={sIdx}
+                          className="px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/[0.06] text-[10px] font-mono text-neutral-300"
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between">
+                    <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3" />
+                      <span>Verified Credential</span>
+                    </span>
+
+                    <a
+                      href={cert.credentialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-xs font-mono text-neutral-300 hover:text-white transition-colors"
+                    >
+                      <span>Verify</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
                   </div>
                 </div>
-
-                <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
-                    <CheckCircle2 className="w-3 h-3" />
-                    <span>Verified Credential</span>
-                  </span>
-
-                  <a
-                    href={cert.credentialUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-xs font-mono text-neutral-300 hover:text-white transition-colors"
-                  >
-                    <span>Verify</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -428,9 +440,9 @@ export const ArsenalSection: React.FC = () => {
               <span className="text-emerald-300 font-semibold uppercase">GitHub Live Telemetry:</span>
               <span className="text-neutral-300">@{liveAccounts.github?.username || 'lohithvarma2208-tech'}</span>
               <span className="text-neutral-500">•</span>
-              <span className="text-amber-300">★ {liveAccounts.github?.totalStars ?? 235} Stars</span>
+              <span className="text-amber-300">★ {liveAccounts.github?.totalStars ?? 0} Stars</span>
               <span className="text-neutral-500">•</span>
-              <span className="text-cyan-300">{liveAccounts.github?.publicRepos ?? 3} Repositories</span>
+              <span className="text-cyan-300">{liveAccounts.github?.publicRepos ?? 4} Repositories</span>
             </div>
             <a
               href={liveAccounts.github?.profileUrl || 'https://github.com/lohithvarma2208-tech'}
@@ -443,71 +455,77 @@ export const ArsenalSection: React.FC = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {openSource.map((oss) => (
-              <div
-                key={oss.id}
-                className="group p-6 rounded-2xl bg-[#090b12]/80 border border-white/[0.08] hover:border-cyan-500/40 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-[10px] font-mono text-cyan-300">
-                      {oss.type} {oss.prNumber ? `// ${oss.prNumber}` : ''}
-                    </span>
-                    {oss.stars && (
-                      <span className="text-[11px] font-mono text-amber-300">
-                        ★ {oss.stars}
+          {openSource.length === 0 ? (
+            <div className="py-16 text-center rounded-2xl bg-[#090b12]/50 border border-white/[0.06] p-8">
+              <p className="text-sm font-mono text-neutral-400">No open source contributions listed.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {openSource.map((oss) => (
+                <div
+                  key={oss.id}
+                  className="group p-6 rounded-2xl bg-[#090b12]/80 border border-white/[0.08] hover:border-cyan-500/40 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-[10px] font-mono text-cyan-300">
+                        {oss.type} {oss.prNumber ? `// ${oss.prNumber}` : ''}
                       </span>
-                    )}
+                      {oss.stars && (
+                        <span className="text-[11px] font-mono text-amber-300">
+                          ★ {oss.stars}
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 className="text-base font-bold font-mono text-white mb-1">
+                      {oss.repo}
+                    </h3>
+
+                    <p className="text-sm font-semibold text-neutral-200 mb-2">
+                      {oss.title}
+                    </p>
+
+                    <p className="text-xs text-neutral-400 mb-3 leading-relaxed">
+                      {oss.description}
+                    </p>
+
+                    <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.05] mb-4">
+                      <span className="text-[10px] font-mono text-cyan-400 uppercase block mb-0.5">
+                        Impact
+                      </span>
+                      <span className="text-xs font-mono text-neutral-300">
+                        {oss.impact}
+                      </span>
+                    </div>
                   </div>
 
-                  <h3 className="text-base font-bold font-mono text-white mb-1">
-                    {oss.repo}
-                  </h3>
+                  <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between">
+                    <div className="flex flex-wrap gap-1">
+                      {oss.techStack.map((tech, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="px-2 py-0.5 rounded bg-white/[0.04] text-[10px] font-mono text-neutral-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
 
-                  <p className="text-sm font-semibold text-neutral-200 mb-2">
-                    {oss.title}
-                  </p>
-
-                  <p className="text-xs text-neutral-400 mb-3 leading-relaxed">
-                    {oss.description}
-                  </p>
-
-                  <div className="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.05] mb-4">
-                    <span className="text-[10px] font-mono text-cyan-400 uppercase block mb-0.5">
-                      Impact
-                    </span>
-                    <span className="text-xs font-mono text-neutral-300">
-                      {oss.impact}
-                    </span>
+                    <a
+                      href={oss.prUrl || oss.repoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1 text-xs font-mono text-neutral-300 hover:text-white transition-colors shrink-0 ml-2"
+                    >
+                      <span>View Repository</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </a>
                   </div>
                 </div>
-
-                <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between">
-                  <div className="flex flex-wrap gap-1">
-                    {oss.techStack.map((tech, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className="px-2 py-0.5 rounded bg-white/[0.04] text-[10px] font-mono text-neutral-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <a
-                    href={oss.prUrl || oss.repoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-xs font-mono text-neutral-300 hover:text-white transition-colors shrink-0 ml-2"
-                  >
-                    <span>View Repository</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -536,64 +554,70 @@ export const ArsenalSection: React.FC = () => {
             </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {honors.map((honor) => (
-              <div
-                key={honor.id}
-                className="group p-6 rounded-2xl bg-[#090b12]/80 border border-white/[0.08] hover:border-cyan-500/40 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-[10px] font-mono text-amber-300">
-                      {honor.badge}
-                    </span>
-                    <span className="text-[11px] font-mono text-neutral-400">
-                      {honor.date}
-                    </span>
+          {honors.length === 0 ? (
+            <div className="py-16 text-center rounded-2xl bg-[#090b12]/50 border border-white/[0.06] p-8">
+              <p className="text-sm font-mono text-neutral-400">No honors or awards listed.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {honors.map((honor) => (
+                <div
+                  key={honor.id}
+                  className="group p-6 rounded-2xl bg-[#090b12]/80 border border-white/[0.08] hover:border-cyan-500/40 transition-all duration-300 backdrop-blur-xl flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-[10px] font-mono text-amber-300">
+                        {honor.badge}
+                      </span>
+                      <span className="text-[11px] font-mono text-neutral-400">
+                        {honor.date}
+                      </span>
+                    </div>
+
+                    <h3 className="text-lg font-bold font-heading text-white mb-1">
+                      {honor.title}
+                    </h3>
+
+                    <p className="text-xs font-mono text-cyan-300 mb-2">
+                      {honor.issuer}
+                    </p>
+
+                    <div className="flex items-center gap-3 my-3">
+                      {honor.rank && (
+                        <span className="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 text-xs font-mono font-semibold text-white">
+                          {honor.rank}
+                        </span>
+                      )}
+                      {honor.metric && (
+                        <span className="text-xs font-mono text-emerald-400">
+                          {honor.metric}
+                        </span>
+                      )}
+                    </div>
+
+                    <p className="text-xs text-neutral-300 leading-relaxed mb-4">
+                      {honor.description}
+                    </p>
                   </div>
 
-                  <h3 className="text-lg font-bold font-heading text-white mb-1">
-                    {honor.title}
-                  </h3>
-
-                  <p className="text-xs font-mono text-cyan-300 mb-2">
-                    {honor.issuer}
-                  </p>
-
-                  <div className="flex items-center gap-3 my-3">
-                    {honor.rank && (
-                      <span className="px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 text-xs font-mono font-semibold text-white">
-                        {honor.rank}
-                      </span>
-                    )}
-                    {honor.metric && (
-                      <span className="text-xs font-mono text-emerald-400">
-                        {honor.metric}
-                      </span>
-                    )}
-                  </div>
-
-                  <p className="text-xs text-neutral-300 leading-relaxed mb-4">
-                    {honor.description}
-                  </p>
+                  {honor.link && (
+                    <div className="pt-3 border-t border-white/[0.06] flex justify-end">
+                      <a
+                        href={honor.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1 text-xs font-mono text-neutral-300 hover:text-white transition-colors"
+                      >
+                        <span>Verification & Proof</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  )}
                 </div>
-
-                {honor.link && (
-                  <div className="pt-3 border-t border-white/[0.06] flex justify-end">
-                    <a
-                      href={honor.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1 text-xs font-mono text-neutral-300 hover:text-white transition-colors"
-                    >
-                      <span>Verification & Proof</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </section>

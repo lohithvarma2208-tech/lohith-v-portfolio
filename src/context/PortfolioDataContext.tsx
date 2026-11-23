@@ -133,7 +133,7 @@ const defaultSkillsData: SkillsData = {
   domains: defaultDomains
 }
 
-const STORAGE_KEY = 'lv_portfolio_master_data_v3'
+const STORAGE_KEY = 'lv_portfolio_master_data_v4'
 
 const PortfolioDataContext = createContext<PortfolioDataContextType | undefined>(undefined)
 
@@ -212,6 +212,7 @@ export const PortfolioDataProvider: React.FC<{ children: React.ReactNode }> = ({
       // Clean up legacy mock data caches
       localStorage.removeItem('lv_portfolio_master_data_v1')
       localStorage.removeItem('lv_portfolio_master_data_v2')
+      localStorage.removeItem('lv_portfolio_master_data_v3')
 
       const saved = localStorage.getItem(STORAGE_KEY)
       if (saved) {
