@@ -115,3 +115,31 @@ CREATE POLICY "Allow admin manage portfolio_qualifications"
   TO authenticated
   USING (true)
   WITH CHECK (true);
+
+
+-- 4. Dynamic Master CMS Table (Cross-Device Real-Time Sync)
+-- When you edit in /admin, this table syncs your edits instantly to mobile phones and visitors.
+CREATE TABLE IF NOT EXISTS portfolio_content (
+  id TEXT PRIMARY KEY DEFAULT 'production',
+  payload JSONB NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- Enable RLS
+ALTER TABLE portfolio_content ENABLE ROW LEVEL SECURITY;
+GRANT ALL ON TABLE portfolio_content TO anon, authenticated;
+
+-- Allow public read access (phones, desktop, visitors)
+CREATE POLICY "Allow public read on portfolio_content"
+  ON portfolio_content
+  FOR SELECT
+  TO anon, authenticated
+  USING (true);
+
+-- Allow public upsert/write access
+CREATE POLICY "Allow write on portfolio_content"
+  ON portfolio_content
+  FOR ALL
+  TO anon, authenticated
+  USING (true)
+  WITH CHECK (true);

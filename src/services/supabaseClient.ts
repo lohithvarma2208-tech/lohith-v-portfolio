@@ -85,3 +85,55 @@ export async function fetchContactMessages(): Promise<
     return []
   }
 }
+
+/**
+ * Universal Cross-Device Cloud Sync:
+ * Saves the portfolio state to Supabase so that edits made on desktop/admin
+ * automatically appear on mobile phones, tablets, and for all visitors worldwide.
+ */
+export async function syncPortfolioToCloud(payload: unknown): Promise<boolean> {
+  if (!supabase || !isSupabaseConfigured) return false
+
+  try {
+    const { error } = await supabase
+      .from('portfolio_content')
+      .upsert(
+        {
+          id: 'production',
+          payload,
+          updated_at: new Date().toISOString()
+        },
+        { onConflict: 'id' }
+      )
+
+    if (error) {
+      console.warn('[Supabase] Cloud sync error:', error.message)
+      return false
+    }
+    return true
+  } catch (err) {
+    console.warn('[Supabase] Sync error:', err)
+    return false
+  }
+}
+
+/**
+ * Fetch latest portfolio data from Supabase cloud database
+ */
+export async function fetchPortfolioFromCloud(): Promise<any | null> {
+  if (!supabase || !isSupabaseConfigured) return null
+
+  try {
+    const { data, error } = await supabase
+      .from('portfolio_content')
+      .select('payload')
+      .eq('id', 'production')
+      .maybeSingle()
+
+    if (error || !data) return null
+    return data.payload
+  } catch (err) {
+    console.warn('[Supabase] Failed to fetch cloud data:', err)
+    return null
+  }
+}

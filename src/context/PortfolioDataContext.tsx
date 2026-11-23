@@ -19,6 +19,7 @@ import {
   defaultHonors
 } from '../data/qualifications'
 import { getCachedLiveAccounts, syncAllLiveAccounts } from '../services/liveSyncService'
+import { syncPortfolioToCloud, fetchPortfolioFromCloud } from '../services/supabaseClient'
 
 export interface PersonalInfo {
   name: string
@@ -168,8 +169,45 @@ export const PortfolioDataProvider: React.FC<{ children: React.ReactNode }> = ({
     refreshLiveAccounts()
   }, [contactInfo.githubUsername, contactInfo.leetcodeUsername, contactInfo.linkedinUrl])
 
-  // Load persisted edits from localStorage on mount
+  // Load persisted edits from localStorage first, then sync with Supabase Cloud Database for cross-device updates
   useEffect(() => {
+    const hydrateState = (parsed: any) => {
+      if (!parsed || typeof parsed !== 'object') return
+      if (parsed.personalInfo) {
+        if (
+          parsed.personalInfo.photoUrl?.startsWith('C:') ||
+          parsed.personalInfo.photoUrl?.startsWith('file:') ||
+          parsed.personalInfo.photoUrl?.includes('\\') ||
+          !parsed.personalInfo.photoUrl
+        ) {
+          parsed.personalInfo.photoUrl = '/lohith_varma.png'
+        }
+        setPersonalInfoState(parsed.personalInfo)
+      }
+      if (parsed.contactInfo) {
+        if (!parsed.contactInfo.leetcodeUsername || parsed.contactInfo.leetcodeUsername === 'lohithvarma2208') {
+          parsed.contactInfo.leetcodeUsername = '_CodeMaster_1'
+          parsed.contactInfo.leetcodeUrl = 'https://leetcode.com/u/_CodeMaster_1/'
+        }
+        setContactInfoState(parsed.contactInfo)
+      }
+      if (parsed.projects && Array.isArray(parsed.projects)) setProjectsState(parsed.projects)
+      if (parsed.skills?.categories) {
+        setSkillsState({
+          ...defaultSkillsData,
+          ...parsed.skills,
+          domains: Array.isArray(parsed.skills.domains) && parsed.skills.domains.length > 0
+            ? parsed.skills.domains
+            : defaultDomains
+        })
+      }
+      if (parsed.timeline && Array.isArray(parsed.timeline)) setTimelineState(parsed.timeline)
+      if (parsed.experiences && Array.isArray(parsed.experiences)) setExperiencesState(parsed.experiences)
+      if (parsed.certifications && Array.isArray(parsed.certifications)) setCertificationsState(parsed.certifications)
+      if (parsed.openSource && Array.isArray(parsed.openSource)) setOpenSourceState(parsed.openSource)
+      if (parsed.honors && Array.isArray(parsed.honors)) setHonorsState(parsed.honors)
+    }
+
     try {
       // Clean up legacy mock data caches
       localStorage.removeItem('lv_portfolio_master_data_v1')
@@ -177,49 +215,26 @@ export const PortfolioDataProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const saved = localStorage.getItem(STORAGE_KEY)
       if (saved) {
-        const parsed = JSON.parse(saved)
-        if (parsed.personalInfo) {
-          // If user previously entered a local Windows path (e.g. C:\... or file:///),
-          // web browsers block it from loading. Auto-recover to /lohith_varma.png
-          if (
-            parsed.personalInfo.photoUrl?.startsWith('C:') ||
-            parsed.personalInfo.photoUrl?.startsWith('file:') ||
-            parsed.personalInfo.photoUrl?.includes('\\') ||
-            !parsed.personalInfo.photoUrl
-          ) {
-            parsed.personalInfo.photoUrl = '/lohith_varma.png'
-          }
-          setPersonalInfoState(parsed.personalInfo)
-        }
-        if (parsed.contactInfo) {
-          if (!parsed.contactInfo.leetcodeUsername || parsed.contactInfo.leetcodeUsername === 'lohithvarma2208') {
-            parsed.contactInfo.leetcodeUsername = '_CodeMaster_1'
-            parsed.contactInfo.leetcodeUrl = 'https://leetcode.com/u/_CodeMaster_1/'
-          }
-          setContactInfoState(parsed.contactInfo)
-        }
-        if (parsed.projects && Array.isArray(parsed.projects)) setProjectsState(parsed.projects)
-        if (parsed.skills?.categories) {
-          setSkillsState({
-            ...defaultSkillsData,
-            ...parsed.skills,
-            domains: Array.isArray(parsed.skills.domains) && parsed.skills.domains.length > 0
-              ? parsed.skills.domains
-              : defaultDomains
-          })
-        }
-        if (parsed.timeline && Array.isArray(parsed.timeline)) setTimelineState(parsed.timeline)
-        if (parsed.experiences && Array.isArray(parsed.experiences)) setExperiencesState(parsed.experiences)
-        if (parsed.certifications && Array.isArray(parsed.certifications)) setCertificationsState(parsed.certifications)
-        if (parsed.openSource && Array.isArray(parsed.openSource)) setOpenSourceState(parsed.openSource)
-        if (parsed.honors && Array.isArray(parsed.honors)) setHonorsState(parsed.honors)
+        hydrateState(JSON.parse(saved))
       }
     } catch (err) {
       console.warn('[PortfolioData] Failed to load from localStorage:', err)
     }
+
+    // Cross-device cloud sync: If Supabase has newer CMS updates, hydrate mobile phones and other devices
+    fetchPortfolioFromCloud().then((cloudData) => {
+      if (cloudData) {
+        hydrateState(cloudData)
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(cloudData))
+        } catch {
+          // ignore
+        }
+      }
+    })
   }, [])
 
-  // Helper to persist current state
+  // Helper to persist current state locally and to Supabase Cloud
   const persist = (
     newPersonal: PersonalInfo,
     newContact: ContactInfo,
@@ -245,6 +260,8 @@ export const PortfolioDataProvider: React.FC<{ children: React.ReactNode }> = ({
         updatedAt: new Date().toISOString()
       }
       localStorage.setItem(STORAGE_KEY, JSON.stringify(payload))
+      // Universal cross-device sync: saves to Supabase cloud database if configured
+      syncPortfolioToCloud(payload)
     } catch (err) {
       console.warn('[PortfolioData] Failed to persist data:', err)
     }
