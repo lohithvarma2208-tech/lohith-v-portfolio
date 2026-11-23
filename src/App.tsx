@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import { ThemeProvider } from './context/ThemeContext'
 import { PortfolioDataProvider } from './context/PortfolioDataContext'
 import { ParticleBackground } from './components/common/ParticleBackground'
@@ -15,7 +15,10 @@ import { TerminalModal } from './components/terminal/TerminalModal'
 import { CommandPalette } from './components/command/CommandPalette'
 import { RobotOpeningScene } from './components/cinematic/RobotOpeningScene'
 import { RobotCompanionOverlay } from './components/common/RobotCompanionOverlay'
-import { AdminPage } from './components/admin/AdminPage'
+
+const AdminPage = lazy(() =>
+  import('./components/admin/AdminPage').then((m) => ({ default: m.AdminPage }))
+)
 
 export function App() {
   const [showRobotIntro, setShowRobotIntro] = useState<boolean>(true)
@@ -37,12 +40,21 @@ export function App() {
       <PortfolioDataProvider>
         {isAdminView ? (
           // Secure Admin CMS Page (Access restricted to Lohith Varma)
-          <AdminPage
-            onBackToSite={() => {
-              window.location.hash = ''
-              setIsAdminView(false)
-            }}
-          />
+          <Suspense
+            fallback={
+              <div className="min-h-screen bg-[#050508] flex flex-col items-center justify-center text-cyan-400 font-mono text-xs gap-3">
+                <div className="w-8 h-8 rounded-full border-2 border-cyan-400/20 border-t-cyan-400 animate-spin" />
+                <span>Loading Admin CMS...</span>
+              </div>
+            }
+          >
+            <AdminPage
+              onBackToSite={() => {
+                window.location.hash = ''
+                setIsAdminView(false)
+              }}
+            />
+          </Suspense>
         ) : (
           // Main Public Portfolio Experience
           <div className="relative min-h-screen bg-[#050508] text-neutral-200 overflow-x-hidden selection:bg-cyan-500/25 selection:text-cyan-200">
