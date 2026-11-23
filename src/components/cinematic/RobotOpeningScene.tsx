@@ -27,23 +27,18 @@ export const RobotOpeningScene: React.FC<RobotOpeningSceneProps> = ({ onEnterPor
 
   const dialogueLines: DialogueLine[] = [
     {
-      text: 'System online.',
-      pauseAfterMs: 800,
-      gesture: 'speaking_0'
-    },
-    {
-      text: 'Interesting. A new mind has entered the system.',
-      pauseAfterMs: 1200,
+      text: 'Oh… another curious human.',
+      pauseAfterMs: 900,
       gesture: 'speaking_1'
     },
     {
-      text: "This is not just a portfolio. It's a record of someone becoming something.",
+      text: "You're just in time. My creator is busy building his future. While he's away, let me show you what he's been building.",
       pauseAfterMs: 1400,
       gesture: 'speaking_2'
     },
     {
-      text: "I'm his little guide. Shall we explore?",
-      pauseAfterMs: 1000,
+      text: "Welcome to Lohith's world. Ready?",
+      pauseAfterMs: 1100,
       gesture: 'speaking_3'
     }
   ]
