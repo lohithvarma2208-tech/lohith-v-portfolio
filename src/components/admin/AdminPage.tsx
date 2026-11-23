@@ -668,8 +668,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToSite }) => {
                       User: <strong className="text-white">@{liveAccounts.github?.username || contactInfo.githubUsername}</strong>
                     </p>
                     <div className="flex items-center justify-between text-[10px] text-neutral-400 pt-1 border-t border-white/5">
-                      <span>{liveAccounts.github?.publicRepos ?? 3} Repos</span>
-                      <span>★ {liveAccounts.github?.totalStars ?? 235}</span>
+                      <span>{liveAccounts.github?.publicRepos ?? 4} Repos</span>
+                      <span>★ {liveAccounts.github?.totalStars ?? 0}</span>
                     </div>
                   </div>
 

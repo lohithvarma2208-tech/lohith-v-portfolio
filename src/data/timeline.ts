@@ -6,43 +6,46 @@ export const timelineData: TimelineItem[] = [
     year: '2024 — Present',
     period: 'Current Academic Focus',
     title: 'Bachelor of Technology in Computer Science & Engineering',
-    organization: 'Undergraduate Program',
+    organization: 'KL University (KLEF)',
     type: 'education',
-    description: 'Pursuing comprehensive computer science foundation with deliberate focus on low-level systems, concurrency, theoretical algorithms, and scalable network architectures.',
+    description:
+      'Pursuing computer science degree with focus on Java, Data Structures & Algorithms, Object-Oriented Software Design, and Web Technologies.',
     achievements: [
-      'Core Coursework: Operating Systems, Computer Organization & Architecture, Data Structures & Algorithms, Database Systems, Computer Networks, Theory of Computation',
-      'Consistently maintains high academic standing while actively shipping real-world open-source systems software',
-      'Led technical workshops on systems programming, Git internals, and modern full-stack web architecture for junior peers'
+      'Core Coursework: Java Programming, Data Structures & Algorithms, Database Systems, Computer Networks, Software Engineering',
+      'Completed Scaler Topics Certificate of Excellence: Java Course - Mastering the Fundamentals (86 tutorials, 12 modules, 9 challenges)',
+      'Actively solving algorithmic challenges on LeetCode (@_CodeMaster_1) to strengthen core computer science problem-solving'
     ],
     status: 'current'
   },
   {
-    id: 'systems-builder-2026',
+    id: 'campus-tooling-2026',
     year: '2026',
     period: 'Active Engineering Arc',
-    title: 'Distributed Systems & Agentic Memory Research',
-    organization: 'Independent Lab & Open Source',
+    title: 'Campus Utilities & Student Productivity Platforms',
+    organization: 'Independent Open-Source Projects',
     type: 'engineering',
-    description: 'Spearheaded development of NexusFlow (distributed broker with Raft consensus) and AetherOS (virtualized browser microkernel runtime).',
+    description:
+      'Created VSS75 (Virtual Student Space) and KL ERP Buddy to solve everyday student academic workflow challenges.',
     achievements: [
-      'Implemented zero-copy ring buffers and Raft consensus in Rust, handling 140k+ messages/second in synthetic benchmarks',
-      'Designed sandboxed WebAssembly execution pipelines using Web Workers and SharedArrayBuffer memory bridges',
-      'Authoring technical essays dissecting storage engine mechanics and latency optimization'
+      'Built VSS75: Collaborative academic resource-sharing network transforming ephemeral notes into a discoverable repository for KL University students',
+      'Engineered KL ERP Buddy: Automated attendance tracking with smart bunk safety calculators (>= 75% threshold) and timetable scheduling',
+      'Designed Notely: Structured marketplace prototype for student study material preparation and peer collaboration'
     ],
     status: 'current'
   },
   {
-    id: 'foundations-2025',
-    year: '2025',
-    period: 'Deep Technical Grounding',
-    title: 'Storage Engines & Graphics Synthesizers',
-    organization: 'Personal Engineering Projects & Hackathons',
+    id: 'web-universe-2026',
+    year: '2026',
+    period: 'Interactive Systems Development',
+    title: 'Interactive 3D WebGL Portfolio & Live Telemetry',
+    organization: 'Personal Production Space',
     type: 'milestone',
-    description: 'Dedicated 12 months to understanding storage hierarchies, writing an LSM-tree key-value store in C++20, and experimenting with WebGL2 shader pipelines.',
+    description:
+      'Built a 3D personal universe featuring real-time LeetCode and GitHub telemetry, interactive Three.js developer avatar, and cloud database integrations.',
     achievements: [
-      'Completed HyperionDB with custom SkipList MemTable and CRC32-checked Write-Ahead Logging',
-      'Engineered SpectralDSP: GPU audio visualizer processing real-time FFT audio spectrums via GLSL fragment shaders',
-      'Top finalist in collegiate competitive hackathons building real-time collaboration platforms'
+      'Engineered responsive 3D WebGL cyber developer avatar with cursor-tracking mechanics',
+      'Built automated live sync engine fetching public LeetCode and GitHub stats dynamically',
+      'Integrated vendor code splitting achieving an ultralight 188 kB entry bundle, deployed to Vercel global edge CDN'
     ],
     status: 'completed'
   },
@@ -50,14 +53,15 @@ export const timelineData: TimelineItem[] = [
     id: 'future-trajectory',
     year: '2026 — 2027',
     period: 'Forward Horizon',
-    title: 'Software Engineering Internships & Core Infrastructure',
-    organization: 'Seeking High-Impact Roles',
+    title: 'Software Engineering Internships & Roles',
+    organization: 'Seeking High-Impact Opportunities',
     type: 'research',
-    description: 'Actively preparing for high-impact SWE internships at engineering-driven organizations building distributed infrastructure, AI developer platforms, or core cloud systems.',
+    description:
+      'Actively preparing for 2027 Software Engineering internships to contribute to production web platforms, systems software, and modern cloud applications.',
     achievements: [
-      'Targeting Summer/Fall 2027 Software Engineering & Systems roles',
-      'Evolving open-source contributions to major distributed database and runtime ecosystems',
-      'Deepening practical knowledge in Linux kernel tracing, eBPF, and high-concurrency network protocols'
+      'Targeting Summer/Fall 2027 Software Engineering & Developer roles',
+      'Continuously expanding real-world full-stack and student utility projects on GitHub',
+      'Deepening algorithmic problem solving and scalable architecture skills'
     ],
     status: 'future'
   }

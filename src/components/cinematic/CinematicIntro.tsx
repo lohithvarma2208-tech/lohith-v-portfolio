@@ -20,8 +20,8 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
 
   // Real systems code that types on the monitor screen
   const codeLines = [
-    '// NexusFlow: High-Throughput Distributed Event Engine',
-    '// Architect & Systems Builder: Lohith Varma',
+    '// VSS75 & KL ERP Buddy: Campus Academic Network Engine',
+    '// Software Engineer & Systems Builder: Lohith Varma',
     'namespace lv::systems::consensus {',
     '  template <typename T, size_t Shards = 32>',
     '  class LockFreeRingBuffer {',
@@ -260,7 +260,7 @@ export const CinematicIntro: React.FC<CinematicIntroProps> = ({ onComplete }) =>
             <div className="w-full h-full bg-[#07090f]/95 p-3 flex flex-col justify-between border border-cyan-500/30">
               <div className="space-y-1">
                 <div className="flex items-center justify-between text-[7px] text-neutral-500 border-b border-white/5 pb-1 mb-1">
-                  <span className="text-cyan-400">nexus_engine.cpp — Clang++ 20</span>
+                  <span className="text-cyan-400">vss75_core.cpp — Clang++ 20</span>
                   <span>UTF-8</span>
                 </div>
                 {codeLines.slice(0, currentTextIndex).map((line, i) => (

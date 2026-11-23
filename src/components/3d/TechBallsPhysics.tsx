@@ -21,17 +21,17 @@ export const TechBallsPhysics: React.FC = () => {
   const [activeGrab, setActiveGrab] = useState<string | null>(null)
 
   const skillsList = [
-    { name: 'C++20', color: '#00599c', bg: '#03192e' },
-    { name: 'RUST', color: '#dea584', bg: '#2b1407' },
+    { name: 'JAVA', color: '#ea580c', bg: '#2e1005' },
+    { name: 'REACT', color: '#61dafb', bg: '#07212b' },
     { name: 'TS', color: '#3178c6', bg: '#081d33' },
+    { name: 'THREE.JS', color: '#ffffff', bg: '#1a1a1a' },
     { name: 'PYTHON', color: '#3776ab', bg: '#0b1f30' },
-    { name: 'GO', color: '#00add8', bg: '#02242e' },
-    { name: 'DOCKER', color: '#2496ed', bg: '#042238' },
-    { name: 'KAFKA', color: '#a855f7', bg: '#1e082e' },
-    { name: 'REDIS', color: '#dc2626', bg: '#2e0909' },
+    { name: 'SUPABASE', color: '#3ecf8e', bg: '#062618' },
     { name: 'POSTGRES', color: '#336791', bg: '#071f33' },
-    { name: 'RAFT', color: '#10b981', bg: '#04261a' },
-    { name: 'LSM', color: '#f59e0b', bg: '#2e1c02' },
+    { name: 'TAILWIND', color: '#38bdf8', bg: '#06212e' },
+    { name: 'DOCKER', color: '#2496ed', bg: '#042238' },
+    { name: 'C++', color: '#00599c', bg: '#03192e' },
+    { name: 'GIT', color: '#f05032', bg: '#2b0b06' },
     { name: 'LINUX', color: '#eab308', bg: '#261c02' }
   ]
 

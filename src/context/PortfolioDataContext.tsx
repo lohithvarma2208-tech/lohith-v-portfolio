@@ -109,8 +109,8 @@ const defaultPersonalInfo: PersonalInfo = {
   title: 'Software Engineer & Systems Builder',
   statusBadge: 'Available for 2027 SWE Internships & Roles',
   tagline: 'Learning relentlessly. Building deliberately. Evolving continuously.',
-  bio: 'Designing high-throughput distributed systems, low-level storage engines, and high-performance interactive interfaces.',
-  location: 'Bengaluru, India',
+  bio: 'Computer Science Undergraduate at KL University. Building high-utility student ecosystems, full-stack applications, and interactive web software.',
+  location: 'KL University, India',
   photoUrl: '/lohith_varma.png'
 }
 
@@ -128,7 +128,7 @@ const defaultSkillsData: SkillsData = {
   categories: defaultSkillCategories
 }
 
-const STORAGE_KEY = 'lv_portfolio_master_data_v1'
+const STORAGE_KEY = 'lv_portfolio_master_data_v3'
 
 const PortfolioDataContext = createContext<PortfolioDataContextType | undefined>(undefined)
 
@@ -167,6 +167,10 @@ export const PortfolioDataProvider: React.FC<{ children: React.ReactNode }> = ({
   // Load persisted edits from localStorage on mount
   useEffect(() => {
     try {
+      // Clean up legacy mock data caches
+      localStorage.removeItem('lv_portfolio_master_data_v1')
+      localStorage.removeItem('lv_portfolio_master_data_v2')
+
       const saved = localStorage.getItem(STORAGE_KEY)
       if (saved) {
         const parsed = JSON.parse(saved)

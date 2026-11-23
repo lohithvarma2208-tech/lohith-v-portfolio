@@ -2,51 +2,50 @@ import type { SkillGroup } from '../types'
 
 export const skillsData: SkillGroup[] = [
   {
-    category: 'Core Systems & Languages',
+    category: 'Core Languages & Systems',
     iconName: 'Cpu',
-    description: 'High-performance computing, memory safety, and systems programming from bare-metal to high-level concurrency.',
+    description: 'Object-oriented programming, systems fundamentals, memory management, and algorithmic problem solving.',
     skills: [
-      { name: 'C / C++20', level: 88, note: 'Memory layout, RAII, move semantics, multithreading & atomic primitives', badge: 'Core' },
-      { name: 'Rust', level: 85, note: 'Async Tokio, fearless concurrency, ownership semantics, zero-cost abstractions', badge: 'Active' },
-      { name: 'TypeScript / JS', level: 94, note: 'Strict typing, AST manipulation, event-loop internals, high-perf DOM', badge: 'Fluent' },
-      { name: 'Python', level: 90, note: 'Systems scripting, DSP pipelines, PyTorch fundamentals, async IO', badge: 'Fluent' },
-      { name: 'Go', level: 82, note: 'Goroutines, channels, microservices, gRPC interfaces', badge: 'Proficient' }
+      { name: 'Java', level: 92, note: 'Scaler Topics Certified, OOP, Collections Framework, Multithreading, Algorithms', badge: 'Certified' },
+      { name: 'TypeScript / JS', level: 90, note: 'Strict typing, modern ESNext, async programming, browser APIs', badge: 'Fluent' },
+      { name: 'C / C++', level: 80, note: 'Pointers, memory management, data structures, performance optimization', badge: 'Core' },
+      { name: 'Python', level: 82, note: 'Scripting, backend logic, data processing, automation', badge: 'Proficient' },
+      { name: 'SQL', level: 85, note: 'Relational schema design, queries, joins, indexing, PostgreSQL', badge: 'Proficient' }
     ]
   },
   {
-    category: 'Distributed Systems & Infrastructure',
-    iconName: 'Server',
-    description: 'Building resilient, fault-tolerant networks, storage backbones, and low-latency message streaming protocols.',
-    skills: [
-      { name: 'Distributed Consensus', level: 84, note: 'Raft protocol, leader election, split-brain mitigation, replication logs' },
-      { name: 'Storage & LSM Trees', level: 86, note: 'SkipLists, write-ahead logging (WAL), SSTable compaction, Bloom filters' },
-      { name: 'Docker & Linux Internals', level: 88, note: 'Namespaces, cgroups, epoll/kqueue, POSIX syscalls, systemd' },
-      { name: 'Redis & Caching Strategy', level: 90, note: 'In-memory data structures, pub/sub, Lua scripting, eviction policies' },
-      { name: 'Kafka / Event Streaming', level: 82, note: 'Partitioning semantics, consumer groups, offset tracking, exactly-once delivery' },
-      { name: 'PostgreSQL & Database Design', level: 89, note: 'ACID guarantees, B-tree indexes, EXPLAIN ANALYZE query planning' }
-    ]
-  },
-  {
-    category: 'Modern Web, Graphics & Architecture',
+    category: 'Modern Web, Graphics & Frontend',
     iconName: 'Monitor',
-    description: 'Crafting fluid 60/120 FPS user interfaces, GPU shader pipelines, and production web applications.',
+    description: 'Crafting responsive user interfaces, interactive 3D WebGL scenes, and reactive state architectures.',
     skills: [
-      { name: 'React 19 & Next.js', level: 95, note: 'Server components, concurrent rendering, memoization architectures', badge: 'Mastery' },
-      { name: 'WebGL2 & GLSL Shaders', level: 78, note: 'Fragment/vertex pipelines, raymarching, framebuffer objects (FBO)' },
-      { name: 'Tailwind CSS & Design Systems', level: 96, note: 'Custom tokens, responsive micro-layouts, glassmorphism, fluid type' },
-      { name: 'Web Audio API & DSP', level: 82, note: 'Synthesizer graphs, AnalyserNode FFT, oscillator modulation, zero-latency DSP' },
-      { name: 'WebAssembly (WASM)', level: 80, note: 'Compiling Rust/C to browser binaries, SharedArrayBuffer memory bridges' }
+      { name: 'React 19 & Vite', level: 92, note: 'Functional components, hooks, concurrent rendering, modular state', badge: 'Primary' },
+      { name: 'Three.js & WebGL', level: 82, note: '3D scene graph, mesh rendering, lighting, materials, camera controls' },
+      { name: 'Tailwind CSS', level: 95, note: 'Design systems, responsive layouts, modern glassmorphism, micro-animations' },
+      { name: 'HTML5 & Modern CSS', level: 94, note: 'Semantic structure, Flexbox/Grid, CSS variables, accessibility' },
+      { name: 'Web Audio API', level: 78, note: 'Sound synthesis, interactive UI audio feedback, oscillator nodes' }
     ]
   },
   {
-    category: 'AI Architectures & Applied Intelligence',
-    iconName: 'Brain',
-    description: 'Autonomous agent design, deterministic tool-calling runtimes, and local vector retrieval pipelines.',
+    category: 'Backend, Database & Cloud Hosting',
+    iconName: 'Server',
+    description: 'Database schemas, authentication, API integrations, and cloud continuous deployment pipelines.',
     skills: [
-      { name: 'Autonomous Agent Frameworks', level: 88, note: 'Finite state machine (FSM) control loops, schema validation, tool sandboxes' },
-      { name: 'Vector Databases & HNSW', level: 85, note: 'High-dimensional embeddings, semantic retrieval, cosine reranking' },
-      { name: 'Prompt & Context Engineering', level: 92, note: 'Few-shot structured outputs, context window compaction, tool routing' },
-      { name: 'LLM Observability & Benchmarks', level: 86, note: 'Latency profiling, token economics, evaluation harnesses' }
+      { name: 'Supabase & PostgreSQL', level: 88, note: 'Relational data modeling, Row-Level Security (RLS), real-time subscriptions' },
+      { name: 'RESTful APIs', level: 90, note: 'HTTP methods, JSON payloads, error handling, third-party integrations' },
+      { name: 'Vercel Edge & Render', level: 88, note: 'Serverless deployment, custom build configurations, zero-downtime rollouts' },
+      { name: 'Git & GitHub CI/CD', level: 92, note: 'Branching models, automated build pipelines, semantic versioning' },
+      { name: 'Docker Fundamentals', level: 78, note: 'Containerization, reproducible runtime environments, multi-stage builds' }
+    ]
+  },
+  {
+    category: 'Computer Science Foundations & Tools',
+    iconName: 'Brain',
+    description: 'Algorithmic efficiency, campus software development, and modern development toolchains.',
+    skills: [
+      { name: 'Data Structures & Algorithms', level: 85, note: 'LeetCode practice (_CodeMaster_1), time & space complexity analysis' },
+      { name: 'Object-Oriented Design', level: 90, note: 'SOLID principles, modular architecture, reusable design patterns' },
+      { name: 'Operating Systems & Linux', level: 80, note: 'Process lifecycle, memory hierarchy, shell scripting, terminal navigation' },
+      { name: 'Campus Utility Architecture', level: 92, note: 'Real-world problem solving: VSS75 academic portal & KL ERP Buddy' }
     ]
   }
 ]

@@ -8,69 +8,63 @@ import type {
 
 export const defaultSkillCategories: SkillCategory[] = [
   {
-    title: 'Systems & Low-Level Programming',
+    title: 'Core Programming Languages',
     skills: [
-      'C++20 (Move Semantics, RAII)',
-      'Rust (Async Tokio, Ownership)',
-      'Linux Kernel Syscalls',
-      'POSIX & epoll / kqueue',
-      'Lock-Free Atomics',
-      'Zero-Copy mmap / Ring Buffers',
-      'io_uring'
+      'Java (OOP, Core Algorithms, Collections)',
+      'TypeScript',
+      'JavaScript (ES6+)',
+      'HTML5 & Modern CSS3',
+      'SQL (PostgreSQL Basics)'
     ]
   },
   {
-    title: 'Distributed Systems & Storage Backbones',
+    title: 'Frontend & Web Technologies',
     skills: [
-      'LSM-Trees (SSTable, Memtable, Compaction)',
-      'Raft Consensus Protocol',
-      'Write-Ahead Logging (WAL)',
-      'Redis & In-Memory Architectures',
-      'Apache Kafka (Partitions, Offsets)',
-      'gRPC & Protocol Buffers',
-      'PostgreSQL (ACID, Query Optimization)'
+      'React 19',
+      'Vite & Rolldown',
+      'Tailwind CSS',
+      'Responsive UI / UX Design',
+      'Client-Side Routing',
+      'DOM Manipulation & Event Handling'
     ]
   },
   {
-    title: 'Backend Runtimes & Languages',
+    title: '3D Graphics & Interactive Web',
     skills: [
-      'Go (Goroutines, Channels)',
-      'Python (Asyncio, NumPy, Scripting)',
-      'TypeScript / Node.js',
-      'WebAssembly (WASM)',
-      'REST & Event-Driven APIs',
-      'Database Schema Migration'
+      'Three.js (Scene, Mesh, Lighting, Materials)',
+      'WebGL Canvas Rendering',
+      'Interactive Cursor Tracking',
+      'Web Audio API Sound Synthesizer'
     ]
   },
   {
-    title: 'Modern Web & GPU Graphics',
+    title: 'Backend, Database & Cloud',
     skills: [
-      'React 19 & Next.js',
-      'Three.js & WebGL2',
-      'GLSL Shaders & Raymarching',
-      'Tailwind CSS & Design Systems',
-      'HTML5 Canvas & Web Audio API'
+      'Supabase (PostgreSQL & Row-Level Security)',
+      'REST API Integration',
+      'Vercel Global Edge CDN',
+      'Render Cloud Hosting',
+      'Local Storage & Session Management'
     ]
   },
   {
-    title: 'Cloud Infrastructure & DevOps',
+    title: 'Developer Tooling & Workflows',
     skills: [
-      'Docker & Containerization',
-      'Kubernetes Basics & Pods',
-      'Linux Administration & Bash',
-      'GitHub Actions (CI/CD Pipelines)',
-      'Prometheus & Grafana Metrics',
-      'Nginx Reverse Proxy'
+      'Git & GitHub Version Control',
+      'Continuous Deployment (CI/CD)',
+      'npm & Package Management',
+      'Bash & PowerShell Scripting',
+      'VS Code & Development Environments'
     ]
   },
   {
-    title: 'Core CS Foundations & Algorithms',
+    title: 'Computer Science Foundations',
     skills: [
-      'Advanced Data Structures (SkipLists, Bloom Filters)',
-      'Graph Algorithms & Dynamic Programming',
-      'Operating System Concurrency & Memory Paging',
-      'Computer Networks (TCP/IP, Congestion Control)',
-      'System Design & Microservices Architecture'
+      'Data Structures & Algorithms',
+      'Object-Oriented Design Principles',
+      'Time & Space Complexity Analysis',
+      'Database Management Systems (DBMS)',
+      'Operating Systems Fundamentals'
     ]
   }
 ]
@@ -78,210 +72,161 @@ export const defaultSkillCategories: SkillCategory[] = [
 export const defaultExperiences: WorkExperience[] = [
   {
     id: 'exp-1',
-    role: 'Systems Software Engineering Intern',
-    company: 'Distributed Systems & Cloud Infrastructure Lab',
-    location: 'Bengaluru, India',
-    period: 'Jun 2025 – Present',
+    role: 'Undergraduate Software Developer & Project Creator',
+    company: 'Independent Engineering & Campus Projects',
+    location: 'KL University, India',
+    period: '2024 – Present',
     current: true,
-    type: 'Internship',
+    type: 'Academic & Projects',
     summary:
-      'Engineered high-throughput caching proxies and low-latency storage subsystems handling distributed state synchronization.',
+      'Designing and engineering real-world software applications and campus utility platforms for students.',
     achievements: [
-      'Designed and deployed an in-memory ring-buffer queue in Go and C++, reducing p99 tail latency from 18ms to 4.2ms under peak 85k req/s load.',
-      'Implemented zero-copy serialization mechanisms using Protocol Buffers and custom binary framing over TCP sockets.',
-      'Built automated chaos engineering tests to simulate network partitions and leader failovers across a multi-node cluster.'
+      'Architected and published VSS75 (Virtual Student Space), creating a collaborative academic knowledge repository for KL University students.',
+      'Engineered KL ERP Buddy, streamlining daily timetable viewing and implementing an automated attendance bunk safety calculator.',
+      'Developed Notely, a structured student marketplace platform facilitating peer-to-peer study material and note preparation services.',
+      'Built a production-grade 3D interactive portfolio deployed on Vercel with automated GitHub CI/CD.'
     ],
-    techStack: ['Go', 'C++20', 'Redis', 'Kafka', 'Docker', 'Linux epoll', 'gRPC']
+    techStack: ['TypeScript', 'JavaScript', 'React', 'Tailwind CSS', 'Vite', 'Three.js', 'Git']
   },
   {
     id: 'exp-2',
-    role: 'Undergraduate Systems Researcher',
-    company: 'Department of Computer Science & Engineering',
-    location: 'Bengaluru, India',
-    period: 'Jan 2025 – May 2025',
-    current: false,
-    type: 'Research',
+    role: 'Computer Science & Engineering Undergrad',
+    company: 'KL University (KLEF)',
+    location: 'India',
+    period: '2024 – 2028 (Expected)',
+    current: true,
+    type: 'Degree Program',
     summary:
-      'Conducted comparative performance benchmarks on Log-Structured Merge (LSM) storage engines versus B+ Tree indexing under heavy write workloads.',
+      'Pursuing B.Tech in Computer Science & Engineering with an emphasis on Java, Data Structures, Algorithms, and Software Engineering.',
     achievements: [
-      'Authored a custom compaction simulator in C++ evaluating tiered vs leveled compaction strategies to measure write amplification factors (WAF).',
-      'Integrated SIMD-accelerated Bloom filters, cutting false positive disk reads during range queries by 34%.',
-      'Presented technical findings and memory telemetry profiles to department faculty and fellow systems builders.'
+      'Mastered core Java fundamentals, object-oriented programming paradigms, and algorithmic problem-solving.',
+      'Active algorithmic practice on LeetCode with 22 problems solved, sharpening data structure foundations.',
+      'Collaborating actively on open-source repositories and participating in campus technical initiatives.'
     ],
-    techStack: ['C++20', 'Linux Perf', 'Valgrind', 'SIMD Intrinsics', 'CMake']
-  },
-  {
-    id: 'exp-3',
-    role: 'Open-Source Systems Developer & Fellow',
-    company: 'Independent Engineering & Systems Community',
-    location: 'Remote',
-    period: 'Aug 2024 – Dec 2024',
-    current: false,
-    type: 'Fellowship',
-    summary:
-      'Contributed core memory management utilities and benchmarking suites across open-source systems libraries.',
-    achievements: [
-      'Contributed asynchronous buffer recycling modules and lock-free queue primitives to community developer tools.',
-      'Refactored legacy network parsing loops to leverage non-blocking epoll event polling, doubling sustained client throughput.',
-      'Maintained 100% test coverage with automated unit, integration, and fuzz testing suites via GitHub Actions.'
-    ],
-    techStack: ['Rust', 'Tokio', 'Linux', 'GitHub Actions', 'Benchmarking']
+    techStack: ['Java', 'Data Structures', 'Algorithms', 'SQL', 'Git']
   }
 ]
 
 export const defaultCertifications: Certification[] = [
   {
     id: 'cert-1',
-    title: 'AWS Certified Solutions Architect – Associate',
-    issuer: 'Amazon Web Services (AWS)',
-    issueDate: '2025',
-    expiryDate: '2028',
-    credentialId: 'AWS-SAA-8492041',
-    credentialUrl: 'https://aws.amazon.com/verification',
+    title: 'Java Course: Mastering the Fundamentals',
+    issuer: 'Scaler Topics (Scaler Academy)',
+    issueDate: 'Sep 24, 2026',
+    credentialId: 'Guntur Lohith Varma — Certificate of Excellence',
+    credentialUrl: '/scaler_java_certificate.png',
     badgeColor: 'amber',
-    skills: ['AWS VPC', 'EC2', 'S3', 'IAM', 'DynamoDB', 'High Availability Architecture']
+    skills: [
+      'Java Programming',
+      'Object-Oriented Programming (OOP)',
+      '86 Video Tutorials',
+      '12 Course Modules',
+      '9 Coding Challenges'
+    ]
   },
   {
     id: 'cert-2',
-    title: 'Meta Back-End Developer Professional Certificate',
-    issuer: 'Meta (via Coursera)',
-    issueDate: '2025',
-    credentialId: 'META-BE-719382',
-    credentialUrl: 'https://www.coursera.org/verify/professional-cert',
-    badgeColor: 'blue',
-    skills: ['Python', 'Django', 'REST APIs', 'PostgreSQL', 'Containerization', 'CI/CD']
+    title: 'Algorithmic Problem Solving (Java)',
+    issuer: 'LeetCode Platform',
+    issueDate: '2026',
+    credentialId: 'Handle: @_CodeMaster_1',
+    credentialUrl: 'https://leetcode.com/u/_CodeMaster_1/',
+    badgeColor: 'emerald',
+    skills: ['Arrays & Strings', 'Hashing', 'Two Pointers', 'Recursion', 'Time Complexity Analysis']
   },
   {
     id: 'cert-3',
-    title: 'Google Cloud Computing Foundations',
-    issuer: 'Google Cloud Skills Boost',
-    issueDate: '2024',
-    credentialId: 'GCCF-9302148',
-    credentialUrl: 'https://www.cloudskillsboost.google',
+    title: 'Modern Web Engineering & Full-Stack Development',
+    issuer: 'Self-Directed Engineering Curriculum',
+    issueDate: '2025 – 2026',
+    credentialUrl: 'https://github.com/lohithvarma2208-tech',
     badgeColor: 'cyan',
-    skills: ['Google Cloud Compute', 'BigQuery', 'Cloud Storage', 'Kubernetes Engine']
-  },
-  {
-    id: 'cert-4',
-    title: 'Linux Foundation Certified System Administrator (LFCS) Curriculum',
-    issuer: 'The Linux Foundation',
-    issueDate: '2024',
-    credentialId: 'LFCS-PREP-55201',
-    credentialUrl: 'https://training.linuxfoundation.org',
-    badgeColor: 'emerald',
-    skills: ['Linux Kernel', 'POSIX Shell', 'Systemd Services', 'Storage & LVM', 'Networking']
-  },
-  {
-    id: 'cert-5',
-    title: 'DeepLearning.AI Machine Learning Specialization',
-    issuer: 'DeepLearning.AI & Stanford Online',
-    issueDate: '2024',
-    credentialId: 'DLAI-ML-448201',
-    credentialUrl: 'https://www.coursera.org/verify/specialization',
-    badgeColor: 'violet',
-    skills: ['Supervised Learning', 'Neural Networks', 'Vector Search', 'Model Evaluation']
+    skills: ['TypeScript', 'React 19', 'Tailwind CSS', 'Vite', 'Three.js 3D WebGL', 'Supabase PostgreSQL']
   }
 ]
 
 export const defaultOpenSource: OpenSourceContribution[] = [
   {
     id: 'oss-1',
-    repo: 'apex-lsm / key-value-engine',
-    repoUrl: 'https://github.com/lohithvarma2208-tech',
-    title: 'ApexLSM: Production-Grade LSM-Tree Storage Engine in C++20',
-    type: 'Core Architecture',
+    repo: 'lohithvarma2208-tech / VSS75',
+    repoUrl: 'https://github.com/lohithvarma2208-tech/VSS75',
+    title: 'VSS75: Virtual Student Space Academic Knowledge Network',
+    type: 'Core Creator',
     description:
-      'Engineered an open-source log-structured merge key-value engine featuring write-ahead logging (WAL), memory tables with SkipLists, and multi-level background compaction.',
-    impact: 'Benchmarked 220,000+ writes/sec with zero corruption under abrupt power-kill recovery tests.',
-    stars: '140+ Stars',
-    techStack: ['C++20', 'Linux mmap', 'CRC32 Checksums', 'Multi-Threading', 'Catch2']
+      'Created an open-source campus knowledge repository transforming ephemeral class notes into a discoverable academic repository for KL University students.',
+    impact: 'Provides an organized, permanent study repository for coursework across semesters.',
+    techStack: ['TypeScript', 'React', 'Tailwind CSS', 'Vite']
   },
   {
     id: 'oss-2',
-    repo: 'raft-consensus / core-cluster',
-    repoUrl: 'https://github.com/lohithvarma2208-tech',
-    title: 'RaftCore: Distributed Consensus State Machine in Go',
-    type: 'Core Architecture',
+    repo: 'lohithvarma2208-tech / kl-erp-buddy',
+    repoUrl: 'https://github.com/lohithvarma2208-tech/kl-erp-buddy',
+    title: 'KL ERP Buddy: Automated Student Attendance & Timetable Dashboard',
+    type: 'Core Creator',
     description:
-      'Implemented full Raft consensus specification including leader election randomized timers, log replication heartbeats, snapshotting, and dynamic membership changes.',
-    impact: 'Successfully passed Jepsen-style automated network partition tests without dirty reads.',
-    stars: '95+ Stars',
-    techStack: ['Go', 'gRPC', 'Protobuf', 'Distributed Systems', 'Chaos Testing']
+      'Developed a student academic utility featuring an automated bunk safety calculator and schedule viewer directly connected to student portals.',
+    impact: 'Empowers students to track and maintain safe 75%+ attendance margins accurately.',
+    techStack: ['JavaScript', 'HTML5', 'CSS3', 'Local Storage']
   },
   {
     id: 'oss-3',
-    repo: 'tokio-rs / ecosystem-contributions',
-    repoUrl: 'https://github.com/tokio-rs',
-    prUrl: 'https://github.com/lohithvarma2208-tech',
-    prNumber: '#PR-284',
-    title: 'Async TCP Connection Pooler Buffer Allocation Optimization',
-    type: 'Pull Request',
+    repo: 'lohithvarma2208-tech / Notely',
+    repoUrl: 'https://github.com/lohithvarma2208-tech/Notely',
+    title: 'Notely: Student Academic Note-Writing Marketplace',
+    type: 'Core Creator',
     description:
-      'Refactored async socket read buffer allocations to avoid reallocations on sustained high-frequency payloads.',
-    impact: 'Reduced allocations in hot polling loops by 18% in microbenchmarks.',
-    techStack: ['Rust', 'Tokio', 'Async/Await', 'Memory Profiling']
+      'Architected a peer-to-peer student marketplace platform enabling custom note preparation and study collaboration.',
+    impact: 'Structures academic preparation requests into an organized bidding and delivery exchange.',
+    techStack: ['TypeScript', 'React', 'Tailwind CSS', 'State Management']
   },
   {
     id: 'oss-4',
-    repo: 'three.js / webgl-pipeline-utils',
-    repoUrl: 'https://github.com/mrdoob/three.js',
-    prUrl: 'https://github.com/lohithvarma2208-tech',
-    prNumber: '#PR-119',
-    title: 'GLSL Shader Material Resource Disposal & FBO Memory Cleanup Patch',
-    type: 'Pull Request',
+    repo: 'lohithvarma2208-tech / lohith-v-portfolio',
+    repoUrl: 'https://github.com/lohithvarma2208-tech/lohith-v-portfolio',
+    title: 'Lohith.V: 3D Interactive WebGL Universe & Portfolio',
+    type: 'Core Creator',
     description:
-      'Identified and patched a WebGL context leak when dynamically destroying and rebuilding custom multi-pass render targets.',
-    impact: 'Merged into community graphics utility packages; resolved recurring GPU VRAM growth in SPA navigations.',
-    techStack: ['WebGL', 'GLSL', 'JavaScript', 'GPU Profiling']
+      'Created a production-ready personal digital space featuring Three.js 3D graphics, live LeetCode telemetry, and Supabase integration.',
+    impact: 'Open-source reference for modern high-performance portfolio engineering.',
+    techStack: ['React 19', 'TypeScript', 'Three.js', 'Vite', 'Tailwind CSS']
   }
 ]
 
 export const defaultHonors: HonorAward[] = [
   {
     id: 'honor-1',
-    title: 'LeetCode Knight (Top 5% Global)',
-    issuer: 'LeetCode Platform',
-    date: '2025',
-    rank: 'Rating 1940+',
-    metric: '650+ Problems Solved',
+    title: 'Certificate of Excellence — Java Fundamentals',
+    issuer: 'Scaler Topics (Co-founder Anshuman Singh)',
+    date: 'September 2026',
+    rank: 'Course Distinction',
+    metric: '86 Video Tutorials • 12 Modules • 9 Challenges Completed',
     description:
-      'Demonstrated algorithmic mastery across Graphs, Dynamic Programming, Segment Trees, and Concurrency in C++ & Python.',
-    badge: 'Competitive Programming',
-    link: 'https://leetcode.com/u/_CodeMaster_1/'
+      'Awarded Certificate of Excellence in recognition of completing the comprehensive Java Course: Mastering the Fundamentals.',
+    badge: 'Certification Honor',
+    link: '/scaler_java_certificate.png'
   },
   {
     id: 'honor-2',
-    title: 'National Level Hackathon Finalist',
-    issuer: 'Smart Systems & Distributed Cloud Track',
-    date: '2024',
-    rank: 'Top 10 Teams Nationally',
-    metric: 'Selected from 1200+ Entries',
+    title: 'LeetCode Algorithm Solver',
+    issuer: 'LeetCode Platform',
+    date: '2026',
+    rank: '#4,439,419 Global Rank',
+    metric: '22 Solved (21 Easy, 1 Medium) • Rating 1450',
     description:
-      'Architected a decentralized edge sensor telemetry aggregator capable of sub-second offline-first data synchronization.',
-    badge: 'Hackathon Podium',
-    link: 'https://github.com/lohithvarma2208-tech'
+      'Consistent timed algorithmic problem-solving practice in Java covering fundamental data structures and logic.',
+    badge: 'Algorithm Solver',
+    link: 'https://leetcode.com/u/_CodeMaster_1/'
   },
   {
     id: 'honor-3',
-    title: 'Academic Excellence & Merit Scholarship',
-    issuer: 'Department of Computer Science & Engineering',
-    date: '2023 – 2025',
-    rank: 'Top 5% Cohort',
-    metric: 'CGPA 9.2 / 10.0',
+    title: 'Academic & Campus Tooling Creator',
+    issuer: 'KL University Student Community',
+    date: '2026',
+    rank: 'Active Project Builder',
+    metric: 'Built VSS75 & KL ERP Buddy',
     description:
-      'Awarded merit commendation for exceptional performance in Operating Systems, Database Management Systems, and Computer Networks.',
-    badge: 'Academic Distinction'
-  },
-  {
-    id: 'honor-4',
-    title: 'Codeforces Specialist (Rating 1480+)',
-    issuer: 'Codeforces Round Div. 2 / Div. 3',
-    date: '2024',
-    rank: 'Specialist Rank',
-    metric: '100+ Contests Completed',
-    description:
-      'Consistent timed problem-solving under strict memory and time limits, specializing in number theory and combinatorics.',
-    badge: 'Competitive Programming',
-    link: 'https://codeforces.com'
+      'Engineered student-centric tools serving academic needs, attendance calculation, and study resource sharing.',
+    badge: 'Campus Innovation',
+    link: 'https://github.com/lohithvarma2208-tech'
   }
 ]

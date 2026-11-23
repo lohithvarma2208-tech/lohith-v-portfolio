@@ -71,8 +71,8 @@ export const CommandPalette: React.FC = () => {
     // Navigation
     {
       id: 'nav-projects',
-      title: 'Navigate to Flagship Projects',
-      subtitle: 'NexusFlow, HyperionDB, AetherOS & low-level systems',
+      title: 'Navigate to Projects',
+      subtitle: 'VSS75, KL ERP Buddy, Notely & Web Platforms',
       category: 'Navigation',
       icon: FolderGit2,
       action: () => navigateTo('projects')

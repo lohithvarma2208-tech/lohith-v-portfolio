@@ -9,7 +9,7 @@ export interface Project {
   id: string
   title: string
   subtitle: string
-  category: 'Distributed Systems' | 'AI & Memory' | 'Low-Level Storage' | 'Graphics & WebGL' | 'Developer Tooling'
+  category: 'Distributed Systems' | 'AI & Memory' | 'Low-Level Storage' | 'Graphics & WebGL' | 'Developer Tooling' | 'Collaborative Platform' | 'Productivity & Tools' | 'Full-Stack Platform' | 'Interactive Systems' | string
   description: string
   architectureOverview: string
   metrics: ProjectMetric[]
@@ -87,7 +87,7 @@ export interface WorkExperience {
   location: string
   period: string
   current?: boolean
-  type: 'Full-Time' | 'Internship' | 'Fellowship' | 'Contract' | 'Research'
+  type: 'Full-Time' | 'Internship' | 'Fellowship' | 'Contract' | 'Research' | 'Academic & Projects' | 'Degree Program' | string
   summary: string
   achievements: string[]
   techStack: string[]
@@ -100,7 +100,7 @@ export interface Certification {
   issueDate: string
   expiryDate?: string
   credentialId?: string
-  credentialUrl: string
+  credentialUrl?: string
   badgeColor?: string
   skills: string[]
 }
@@ -112,7 +112,7 @@ export interface OpenSourceContribution {
   title: string
   prUrl?: string
   prNumber?: string
-  type: 'Pull Request' | 'Maintainer' | 'Core Architecture' | 'Module' | 'Tool'
+  type: 'Pull Request' | 'Maintainer' | 'Core Architecture' | 'Module' | 'Tool' | 'Core Creator' | string
   description: string
   impact: string
   stars?: string

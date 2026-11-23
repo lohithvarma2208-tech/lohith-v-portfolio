@@ -156,14 +156,13 @@ Seeking:    2027 Summer/Fall SWE Internships & High-Impact Engineering Roles`
         newLogs.push({
           type: 'ascii',
           text: `
-     .------.         User:        lohith@systems-core
-    /  LV.   \\        Host:        Bengaluru Distributed Node
-   |  (====)  |       OS:          AetherOS v2.6-kernel
-    \\        /        Uptime:      Compounding daily since 2024
-     '------'         Shell:       lv-zsh 5.9 (x86_64)
-                      Languages:   C++, Rust, TypeScript, Python, Go
-                      Interests:   Distributed Consensus, LSM Engines, DSP
-                      Status:      Active / Building for the Future
+     .------.         User:        guntur-lohith-varma@kluniversity
+    /  LV.   \\        Host:        KL University Student Node
+   |  (====)  |       Degree:      B.Tech Computer Science & Engineering
+    \\        /        Uptime:      Active since 2024
+     '------'         Languages:   Java, TypeScript, JavaScript, SQL
+                      Focus:       Campus Utilities, Full-Stack Web, LeetCode
+                      Status:      Available for 2027 SWE Internships & Roles
           `
         })
         break
@@ -171,12 +170,11 @@ Seeking:    2027 Summer/Fall SWE Internships & High-Impact Engineering Roles`
       case 'projects':
         newLogs.push({
           type: 'output',
-          text: `FLAGSHIP PROJECTS:
-1. NexusFlow   - High-throughput distributed event broker (Rust, Raft, zero-copy WAL)
-2. HyperionDB  - LSM-tree key-value storage engine (C++20, SkipList, Bloom filters)
-3. AetherOS    - In-browser microkernel desktop & WebAssembly VM (TypeScript, Workers)
-4. SpectralDSP - Real-time GPU audio visualizer & shader synthesizer (WebGL2, DSP FFT)
-5. Sentience   - Deterministic FSM agent memory & tool orchestration engine`
+          text: `FEATURED PROJECTS:
+1. VSS75        - Virtual Student Space: Campus Academic Knowledge Network (TypeScript)
+2. KL ERP Buddy - Student Academic Dashboard & Attendance Bunk Calculator (JavaScript)
+3. Notely       - Student Note-Writing & Academic Services Marketplace (TypeScript)
+4. Lohith.V     - 3D Personal Digital Universe & Engineering Portfolio (React 19, Three.js)`
         })
         break
 
@@ -184,10 +182,10 @@ Seeking:    2027 Summer/Fall SWE Internships & High-Impact Engineering Roles`
         newLogs.push({
           type: 'output',
           text: `TECHNICAL ARSENAL:
-- Systems:      C++20, Rust, POSIX, Multi-threading, io_uring, Raft, SkipLists
-- Web & UI:     TypeScript, React 19, Next.js, WebGL2/GLSL, Tailwind CSS
-- Data & Cloud: Redis, PostgreSQL, Kafka, Docker, Linux Internals
-- AI Runtimes:  HNSW Vector Search, Deterministic FSM Tool-Calling, Structured Outputs`
+- Core:         Java (OOP & Scaler Topics Certified), TypeScript, JavaScript, C/C++, Python
+- Web & UI:     React 19, Three.js (WebGL), Tailwind CSS, Vite, HTML5/CSS3
+- Data & Cloud: Supabase (PostgreSQL), REST APIs, Vercel Edge, Render, Git/GitHub
+- CS Core:      Data Structures, Algorithms (LeetCode), OOP, DBMS, OS Fundamentals`
         })
         break
 

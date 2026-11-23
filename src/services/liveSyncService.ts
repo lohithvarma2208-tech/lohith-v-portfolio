@@ -6,42 +6,50 @@ import type {
   LiveGitHubRepo
 } from '../types'
 
-const CACHE_KEY = 'lv_live_accounts_cache_v1'
+const CACHE_KEY = 'lv_live_accounts_cache_v2'
 
 const defaultGitHubData: LiveGitHubData = {
   username: 'lohithvarma2208-tech',
   profileUrl: 'https://github.com/lohithvarma2208-tech',
   avatarUrl: 'https://avatars.githubusercontent.com/u/305896561?v=4',
-  publicRepos: 3,
+  publicRepos: 4,
   followers: 1,
   following: 1,
-  totalStars: 235,
+  totalStars: 0,
   lastUpdated: new Date().toISOString(),
-  latestActivity: 'Active repository commits and systems architecture updates',
+  latestActivity: 'Active full-stack and campus academic repository development',
   repos: [
     {
-      name: 'apex-lsm',
-      description: 'Production-Grade LSM-Tree Storage Engine in C++20 with WAL and multi-level compaction',
-      language: 'C++',
-      stars: 140,
-      url: 'https://github.com/lohithvarma2208-tech',
-      updatedAt: '2026-11-20T10:00:00Z'
+      name: 'VSS75',
+      description: 'Virtual Student Space — Campus Academic Knowledge Network for KL University students',
+      language: 'TypeScript',
+      stars: 0,
+      url: 'https://github.com/lohithvarma2208-tech/VSS75',
+      updatedAt: '2026-11-21T20:03:50Z'
     },
     {
-      name: 'raft-consensus-core',
-      description: 'Distributed consensus state machine in Go with randomized leader election and snapshotting',
-      language: 'Go',
-      stars: 95,
-      url: 'https://github.com/lohithvarma2208-tech',
-      updatedAt: '2026-11-18T14:30:00Z'
+      name: 'kl-erp-buddy',
+      description: 'Automated attendance dashboard with bunk safety calculator and timetable scheduler for KL University ERP',
+      language: 'JavaScript',
+      stars: 0,
+      url: 'https://github.com/lohithvarma2208-tech/kl-erp-buddy',
+      updatedAt: '2026-08-09T07:35:59Z'
     },
     {
-      name: 'zero-copy-ringbuf',
-      description: 'Lock-free ring-buffer and shared memory buffer pooling for high-throughput Linux network polling',
-      language: 'Rust',
-      stars: 48,
-      url: 'https://github.com/lohithvarma2208-tech',
-      updatedAt: '2026-11-15T09:15:00Z'
+      name: 'Notely',
+      description: 'Student academic note-writing and note-preparation marketplace platform',
+      language: 'TypeScript',
+      stars: 0,
+      url: 'https://github.com/lohithvarma2208-tech/Notely',
+      updatedAt: '2026-11-18T15:11:17Z'
+    },
+    {
+      name: 'lohith-v-portfolio',
+      description: '3D interactive engineering portfolio with Three.js avatar and cloud database integration',
+      language: 'TypeScript',
+      stars: 0,
+      url: 'https://github.com/lohithvarma2208-tech/lohith-v-portfolio',
+      updatedAt: '2026-11-23T15:00:00Z'
     }
   ]
 }

@@ -107,13 +107,13 @@ export const LiveAccountsHub: React.FC<LiveAccountsHubProps> = ({
             <div className="grid grid-cols-3 gap-2 my-3 p-2.5 rounded-xl bg-black/40 border border-white/5 text-center">
               <div>
                 <span className="text-sm font-bold font-mono text-white block">
-                  {github?.publicRepos ?? 3}
+                  {github?.publicRepos ?? 4}
                 </span>
                 <span className="text-[9px] font-mono text-neutral-400 uppercase">Repos</span>
               </div>
               <div>
                 <span className="text-sm font-bold font-mono text-cyan-300 block">
-                  {github?.totalStars ?? 235}
+                  {github?.totalStars ?? 0}
                 </span>
                 <span className="text-[9px] font-mono text-neutral-400 uppercase">Stars</span>
               </div>
@@ -128,7 +128,7 @@ export const LiveAccountsHub: React.FC<LiveAccountsHubProps> = ({
             <div className="flex items-start gap-1.5 text-[11px] font-mono text-neutral-400 mb-3">
               <GitBranch className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
               <span className="line-clamp-2 leading-relaxed">
-                {github?.latestActivity || 'Active repository pushes and systems commits'}
+                {github?.latestActivity || 'Active full-stack and campus academic repository development'}
               </span>
             </div>
           </div>
