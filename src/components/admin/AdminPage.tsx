@@ -22,11 +22,18 @@ import {
   GitPullRequest,
   Trophy,
   RefreshCw,
-  Code2
+  Code2,
+  Cloud,
+  Database,
+  Server,
+  Globe,
+  ExternalLink,
+  Copy
 } from 'lucide-react'
 import { GithubIcon, LinkedinIcon } from '../common/Icons'
 import { usePortfolioData } from '../../context/PortfolioDataContext'
 import { sound } from '../../utils/sound'
+import { isSupabaseConfigured, fetchContactMessages } from '../../services/supabaseClient'
 import type {
   Project,
   TimelineItem,
@@ -50,6 +57,7 @@ type AdminTab =
   | 'opensource'
   | 'honors'
   | 'timeline'
+  | 'deployments'
   | 'backup'
 
 export const AdminPage: React.FC<AdminPageProps> = ({ onBackToSite }) => {
@@ -129,6 +137,25 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToSite }) => {
   // JSON Import state
   const [importJsonText, setImportJsonText] = useState<string>('')
   const [importMsg, setImportMsg] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+
+  // Cloud & Messages state
+  const [supabaseMessages, setSupabaseMessages] = useState<
+    Array<{ id: string; name: string; email: string; message: string; created_at: string }>
+  >([])
+  const [loadingMessages, setLoadingMessages] = useState<boolean>(false)
+
+  const handleFetchMessages = async () => {
+    sound.playClick()
+    setLoadingMessages(true)
+    const msgs = await fetchContactMessages()
+    setSupabaseMessages(msgs)
+    setLoadingMessages(false)
+    if (msgs.length > 0) {
+      showToast(`Loaded ${msgs.length} visitor message(s) from Supabase!`)
+    } else {
+      showToast('No messages found in Supabase yet.')
+    }
+  }
 
   const showToast = (msg: string) => {
     sound.playSuccess()
@@ -349,6 +376,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToSite }) => {
               { id: 'opensource', label: `Open Source (${openSource.length})`, icon: GitPullRequest },
               { id: 'honors', label: `Honors (${honors.length})`, icon: Trophy },
               { id: 'timeline', label: `Timeline (${timeline.length})`, icon: Milestone },
+              { id: 'deployments', label: 'Deploy & Cloud', icon: Cloud },
               { id: 'backup', label: 'Backup & Restore', icon: Download }
             ].map((tab) => {
               const Icon = tab.icon
@@ -1220,6 +1248,242 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onBackToSite }) => {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* TAB: DEPLOYMENTS & CLOUD (Vercel, Render, Supabase) */}
+          {activeTab === 'deployments' && (
+            <div className="space-y-6 animate-fadeIn">
+              <div className="border-b border-white/[0.08] pb-4">
+                <div className="flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">
+                  <Cloud className="w-4 h-4" />
+                  <span>Deployment & Infrastructure</span>
+                </div>
+                <h2 className="text-xl font-bold font-heading text-white">Cloud Hosting & Supabase Database</h2>
+                <p className="text-xs text-neutral-400 mt-0.5">
+                  Production deployment blueprints for Vercel, Render, and Supabase PostgreSQL.
+                </p>
+              </div>
+
+              {/* 3 Main Platforms Grid */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                {/* 1. Vercel Card */}
+                <div className="p-5 rounded-2xl bg-black/40 border border-white/[0.08] flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white">
+                          <Globe className="w-4 h-4" />
+                        </div>
+                        <h3 className="text-sm font-bold font-mono text-white">Vercel</h3>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/15 border border-emerald-500/30 text-emerald-300">
+                        CONFIGURED
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-neutral-400 leading-relaxed">
+                      Primary edge hosting for the portfolio. Provides global CDN, automatic SSL certificates, and instant CI/CD on every GitHub commit.
+                    </p>
+
+                    <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-1.5 font-mono text-[11px]">
+                      <div className="text-neutral-400">Blueprint File:</div>
+                      <div className="text-cyan-300">vercel.json (SPA rewrites & asset caching)</div>
+                      <div className="text-neutral-400 pt-1 border-t border-white/5">Deploy Command:</div>
+                      <div className="text-neutral-200">npx vercel</div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard.writeText('npx vercel')
+                        showToast('Copied "npx vercel" to clipboard!')
+                      }}
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-mono text-xs transition-colors cursor-pointer"
+                    >
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Copy Deploy Command</span>
+                    </button>
+                    <a
+                      href="https://vercel.com/new"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white text-black font-mono text-xs font-semibold hover:bg-neutral-200 transition-colors cursor-pointer"
+                    >
+                      <span>Open Vercel Dashboard</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* 2. Render Card */}
+                <div className="p-5 rounded-2xl bg-black/40 border border-white/[0.08] flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400">
+                          <Server className="w-4 h-4" />
+                        </div>
+                        <h3 className="text-sm font-bold font-mono text-white">Render</h3>
+                      </div>
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-indigo-500/15 border border-indigo-500/30 text-indigo-300">
+                        CONFIGURED
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-neutral-400 leading-relaxed">
+                      Zero-cost cloud static hosting and backup edge server with automated builds directly from your repository blueprint.
+                    </p>
+
+                    <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-1.5 font-mono text-[11px]">
+                      <div className="text-neutral-400">Blueprint File:</div>
+                      <div className="text-indigo-300">render.yaml (Static edge service)</div>
+                      <div className="text-neutral-400 pt-1 border-t border-white/5">Publish Directory:</div>
+                      <div className="text-neutral-200">./dist</div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard.writeText('npm run build')
+                        showToast('Copied "npm run build" to clipboard!')
+                      }}
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-mono text-xs transition-colors cursor-pointer"
+                    >
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Copy Build Command</span>
+                    </button>
+                    <a
+                      href="https://dashboard.render.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-indigo-500 hover:bg-indigo-600 text-white font-mono text-xs font-semibold transition-colors cursor-pointer"
+                    >
+                      <span>Open Render Dashboard</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+
+                {/* 3. Supabase Card */}
+                <div className="p-5 rounded-2xl bg-black/40 border border-white/[0.08] flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+                          <Database className="w-4 h-4" />
+                        </div>
+                        <h3 className="text-sm font-bold font-mono text-white">Supabase</h3>
+                      </div>
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold ${
+                          isSupabaseConfigured
+                            ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                            : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
+                        }`}
+                      >
+                        {isSupabaseConfigured ? 'CONNECTED' : 'LOCAL PERSISTENCE'}
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-neutral-400 leading-relaxed">
+                      PostgreSQL cloud database for contact form submissions, content sync, and visitor telemetry with Row-Level Security.
+                    </p>
+
+                    <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-1.5 font-mono text-[11px]">
+                      <div className="text-neutral-400">Database Schema:</div>
+                      <div className="text-emerald-300">supabase/schema.sql</div>
+                      <div className="text-neutral-400 pt-1 border-t border-white/5">Required Env Vars:</div>
+                      <div className="text-neutral-300">VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY</div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const sql = `-- Run in Supabase SQL Editor:
+CREATE TABLE IF NOT EXISTS contact_messages (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  message TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT now()
+);
+ALTER TABLE contact_messages ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow public insert on contact_messages" ON contact_messages FOR INSERT TO anon, authenticated WITH CHECK (true);`
+                        navigator.clipboard.writeText(sql)
+                        showToast('Copied SQL Schema to clipboard!')
+                      }}
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white font-mono text-xs transition-colors cursor-pointer"
+                    >
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Copy SQL Schema</span>
+                    </button>
+                    <a
+                      href="https://supabase.com/dashboard"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-mono text-xs font-semibold transition-colors cursor-pointer"
+                    >
+                      <span>Open Supabase Dashboard</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Supabase Visitor Messages Box */}
+              <div className="p-5 rounded-2xl bg-black/40 border border-white/[0.08] space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/[0.06]">
+                  <div className="flex items-center gap-2">
+                    <Database className="w-4 h-4 text-emerald-400" />
+                    <h3 className="text-sm font-bold font-mono text-white">
+                      Supabase Contact Messages Inbox ({supabaseMessages.length})
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleFetchMessages}
+                    disabled={loadingMessages}
+                    className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 text-xs font-mono transition-colors cursor-pointer"
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 ${loadingMessages ? 'animate-spin' : ''}`} />
+                    <span>{loadingMessages ? 'Connecting...' : 'Fetch Messages from Supabase'}</span>
+                  </button>
+                </div>
+
+                {supabaseMessages.length === 0 ? (
+                  <div className="text-center py-8 text-neutral-500 font-mono text-xs space-y-1">
+                    <p>No messages loaded yet from Supabase.</p>
+                    <p className="text-[11px] text-neutral-600">
+                      When visitors send inquiries through the Contact section, they will appear here once your Supabase keys are configured.
+                    </p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {supabaseMessages.map((msg) => (
+                      <div
+                        key={msg.id}
+                        className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] space-y-2 text-xs"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="font-bold text-white font-mono">{msg.name}</span>
+                          <span className="text-[10px] text-neutral-500 font-mono">{new Date(msg.created_at).toLocaleString()}</span>
+                        </div>
+                        <div className="text-cyan-400 font-mono text-[11px]">{msg.email}</div>
+                        <p className="text-neutral-300 leading-relaxed font-sans pt-1 border-t border-white/5">
+                          {msg.message}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           )}

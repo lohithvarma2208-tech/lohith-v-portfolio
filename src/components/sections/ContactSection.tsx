@@ -6,6 +6,7 @@ import { SpotlightCard } from '../common/SpotlightCard'
 import confetti from 'canvas-confetti'
 import { usePortfolioData } from '../../context/PortfolioDataContext'
 import { LiveAccountsHub } from '../common/LiveAccountsHub'
+import { submitContactMessage } from '../../services/supabaseClient'
 
 export const ContactSection: React.FC = () => {
   const { personalInfo, contactInfo } = usePortfolioData()
@@ -33,19 +34,24 @@ export const ContactSection: React.FC = () => {
     window.open(contactInfo.resumeUrl, '_blank')
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.name || !formData.email || !formData.message) return
 
     sound.playClick()
     setIsSubmitting(true)
 
-    setTimeout(() => {
-      sound.playSuccess()
-      setIsSubmitting(false)
-      setIsSubmitted(true)
-      confetti({ particleCount: 70, spread: 70 })
-    }, 1000)
+    // Save to Supabase (if configured) or local handler
+    await submitContactMessage({
+      name: formData.name,
+      email: formData.email,
+      message: formData.message
+    })
+
+    sound.playSuccess()
+    setIsSubmitting(false)
+    setIsSubmitted(true)
+    confetti({ particleCount: 70, spread: 70 })
   }
 
   return (
