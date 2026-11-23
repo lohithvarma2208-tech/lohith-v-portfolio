@@ -19,6 +19,10 @@ CREATE TABLE IF NOT EXISTS contact_messages (
 -- Enable Row Level Security (RLS)
 ALTER TABLE contact_messages ENABLE ROW LEVEL SECURITY;
 
+-- Grant table privileges to anon and authenticated roles
+GRANT ALL ON TABLE contact_messages TO anon, authenticated;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated;
+
 -- Allow anonymous visitors to submit messages (INSERT only)
 CREATE POLICY "Allow public insert on contact_messages"
   ON contact_messages
@@ -30,7 +34,7 @@ CREATE POLICY "Allow public insert on contact_messages"
 CREATE POLICY "Allow admin to view contact_messages"
   ON contact_messages
   FOR SELECT
-  TO authenticated
+  TO anon, authenticated
   USING (true);
 
 
