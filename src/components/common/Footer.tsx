@@ -80,7 +80,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAdmin }) => {
         {/* Bottom Strip */}
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500">
           <div className="flex items-center gap-3">
-            <span>© {new Date().getFullYear()} {personalInfo.name.toUpperCase()}. All rights reserved.</span>
+            <span>© 2026 {personalInfo.name.toUpperCase()}. All rights reserved.</span>
             <span>•</span>
             <button
               onClick={handleAdminClick}

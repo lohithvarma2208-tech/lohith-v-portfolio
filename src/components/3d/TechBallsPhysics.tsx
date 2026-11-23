@@ -239,11 +239,11 @@ export const TechBallsPhysics: React.FC = () => {
           if (s.x > boundX - s.radius) {
             s.x = boundX - s.radius
             s.vx *= -0.8
-            sound.playCollision ? sound.playCollision() : sound.playHover()
+            sound.playCollision()
           } else if (s.x < -boundX + s.radius) {
             s.x = -boundX + s.radius
             s.vx *= -0.8
-            sound.playCollision ? sound.playCollision() : sound.playHover()
+            sound.playCollision()
           }
 
           if (s.y > boundY - s.radius) {
