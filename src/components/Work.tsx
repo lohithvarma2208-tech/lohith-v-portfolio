@@ -1,11 +1,6 @@
 import "./styles/Work.css";
 import WorkImage from "./WorkImage";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import { MdArrowOutward } from "react-icons/md";
-
-gsap.registerPlugin(useGSAP);
 
 interface ProjectItem {
   id: string;
@@ -23,7 +18,7 @@ const projects: ProjectItem[] = [
     category: "Academic Space & Community",
     tools: "TypeScript, React, Tailwind CSS, Full-Stack Architecture",
     link: "https://github.com/lohithvarma2208-tech/vss-75",
-    image: "/images/placeholder.webp",
+    image: "/images/vss75.jpg",
   },
   {
     id: "02",
@@ -31,7 +26,7 @@ const projects: ProjectItem[] = [
     category: "Intelligent Systems & Neural Models",
     tools: "Python, Machine Learning, Agentic Web Dev, Data Intelligence",
     link: "https://github.com/lohithvarma2208-tech",
-    image: "/images/placeholder.webp",
+    image: "/images/aiml-labs.jpg",
   },
   {
     id: "03",
@@ -39,52 +34,11 @@ const projects: ProjectItem[] = [
     category: "Data Structures & Complex Systems",
     tools: "Java, Python, High-Efficiency Algorithms",
     link: "https://github.com/lohithvarma2208-tech",
-    image: "/images/placeholder.webp",
+    image: "/images/algo-practice.jpg",
   },
 ];
 
 const Work = () => {
-  useGSAP(() => {
-    let translateX: number = 0;
-
-    function setTranslateX() {
-      const box = document.getElementsByClassName("work-box");
-      if (!box || box.length === 0) return;
-      const container = document.querySelector(".work-container");
-      if (!container) return;
-      const rectLeft = container.getBoundingClientRect().left;
-      const rect = box[0].getBoundingClientRect();
-      const parentWidth = box[0].parentElement!.getBoundingClientRect().width;
-      let padding: number =
-        parseInt(window.getComputedStyle(box[0]).padding) / 2;
-      translateX = Math.max(0, rect.width * box.length - (rectLeft + parentWidth) + padding);
-    }
-
-    setTranslateX();
-
-    if (translateX > 0) {
-      let timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".work-section",
-          start: "top top",
-          end: `+=${translateX}`,
-          scrub: true,
-          pin: true,
-          id: "work",
-        },
-      });
-
-      timeline.to(".work-flex", {
-        x: -translateX,
-        ease: "none",
-      });
-    }
-
-    return () => {
-      ScrollTrigger.getById("work")?.kill();
-    };
-  }, []);
-
   return (
     <div className="work-section" id="work">
       <div className="work-container section-container">
@@ -126,7 +80,11 @@ const Work = () => {
                   </a>
                 </div>
               </div>
-              <WorkImage image={project.image} alt={project.name} />
+              <WorkImage
+                image={project.image}
+                alt={project.name}
+                link={project.link}
+              />
             </div>
           ))}
         </div>
