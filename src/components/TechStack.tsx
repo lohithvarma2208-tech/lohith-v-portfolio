@@ -1,6 +1,5 @@
 import React from "react";
-import { FaPython, FaJava, FaReact, FaGitAlt } from "react-icons/fa6";
-import { SiTypescript } from "react-icons/si";
+import { FaPython, FaJava, FaGitAlt } from "react-icons/fa6";
 import { TbRobot } from "react-icons/tb";
 import "./styles/TechStack.css";
 
@@ -35,25 +34,11 @@ const skills: SkillPill[] = [
     glow: "rgba(248, 152, 32, 0.35)",
   },
   {
-    name: "React & Next.js",
-    tag: "Frontend",
-    icon: <FaReact />,
-    color: "#61dafb",
-    glow: "rgba(97, 218, 251, 0.35)",
-  },
-  {
     name: "Git & GitHub",
     tag: "DevOps",
     icon: <FaGitAlt />,
     color: "#f1502f",
     glow: "rgba(241, 80, 47, 0.35)",
-  },
-  {
-    name: "TypeScript",
-    tag: "Type-Safe",
-    icon: <SiTypescript />,
-    color: "#3178c6",
-    glow: "rgba(49, 120, 198, 0.35)",
   },
 ];
 
