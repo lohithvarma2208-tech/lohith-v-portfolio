@@ -18,63 +18,63 @@ interface SkillCard {
 const skills: SkillCard[] = [
   {
     name: "Python",
-    category: "AI / ML Core Engine",
+    category: "AI / ML Core",
     icon: <FaPython />,
-    level: "Core Competency",
-    description: "Primary engineering language for machine learning algorithms, deep neural architectures, and intelligent data systems.",
+    level: "Core Stack",
+    description: "Machine learning models, neural nets & data pipelines.",
     color: "#4584b6",
     glow: "rgba(69, 132, 182, 0.4)",
-    tags: ["Machine Learning", "Neural Nets", "Data Science", "NumPy"],
+    tags: ["ML", "Neural Nets", "NumPy"],
   },
   {
     name: "Agentic Web Dev",
     category: "Autonomous Systems",
     icon: <TbRobot />,
-    level: "Advanced Specialization",
-    description: "Architecting autonomous agent workflows, LLM orchestration, structured tool execution, and reactive intelligent web loops.",
+    level: "Specialization",
+    description: "Autonomous agent loops, tool calling & LLM workflows.",
     color: "#c084fc",
     glow: "rgba(192, 132, 252, 0.45)",
-    tags: ["Agentic AI", "Tool Calling", "Workflows", "Automation"],
+    tags: ["Agentic AI", "Tool Calling", "Workflows"],
   },
   {
     name: "Java",
-    category: "Software Foundations",
+    category: "Core CS",
     icon: <FaJava />,
-    level: "Strong Foundation",
-    description: "Robust object-oriented programming, computational complexity mastery, advanced data structures, and algorithmic rigor.",
+    level: "Foundation",
+    description: "OOP, data structures & algorithmic problem solving.",
     color: "#f89820",
     glow: "rgba(248, 152, 32, 0.4)",
-    tags: ["OOP", "Data Structures", "Algorithms", "System Design"],
+    tags: ["OOP", "DSA", "Algorithms"],
   },
   {
     name: "React & Next.js",
-    category: "Modern UI Engineering",
+    category: "Frontend",
     icon: <FaReact />,
-    level: "Full-Stack Web",
-    description: "Modern component-driven web architectures, state synchronization, server-side rendering, and responsive UI design.",
+    level: "Full-Stack",
+    description: "Responsive, component-driven full-stack interfaces.",
     color: "#61dafb",
     glow: "rgba(97, 218, 251, 0.4)",
-    tags: ["React 19", "Next.js", "TypeScript", "Tailwind CSS"],
+    tags: ["React", "Next.js", "Tailwind"],
   },
   {
     name: "Git & GitHub",
-    category: "DevOps & Collaboration",
+    category: "DevOps",
     icon: <FaGitAlt />,
-    level: "Daily Workflow",
-    description: "Structured source control, branch orchestration, version management, and continuous CI/CD deployment pipelines.",
+    level: "Workflow",
+    description: "Version control, branching & CI/CD workflows.",
     color: "#f1502f",
     glow: "rgba(241, 80, 47, 0.4)",
-    tags: ["Version Control", "CI/CD", "Open Source", "Workflow"],
+    tags: ["Git", "CI/CD", "Open Source"],
   },
   {
     name: "TypeScript",
-    category: "Type-Safe Systems",
+    category: "Type Safety",
     icon: <SiTypescript />,
     level: "Architecture",
-    description: "Type-safe robust application development, compile-time error prevention, and clean interface contracts.",
+    description: "Type-safe architectures & clean API contracts.",
     color: "#3178c6",
     glow: "rgba(49, 120, 198, 0.4)",
-    tags: ["Type Safety", "Interfaces", "Clean Architecture"],
+    tags: ["Types", "Interfaces", "Clean Code"],
   },
 ];
 
@@ -115,7 +115,7 @@ const TechStack = () => {
           Technical <span>Arsenal</span>
         </h2>
         <p className="tech-bento-subtitle">
-          Core technologies, neural architectures, and software engineering tools powering my development.
+          Core stack powering my AI & web builds.
         </p>
       </div>
 
