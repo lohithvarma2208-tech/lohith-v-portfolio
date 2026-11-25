@@ -1,29 +1,55 @@
-import { useEffect, useRef } from "react";
+import { useState } from "react";
 import "./styles/WhatIDo.css";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+interface Discipline {
+  id: string;
+  num: string;
+  tabLabel: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  tags: string[];
+}
+
+const disciplines: Discipline[] = [
+  {
+    id: "ai-ml",
+    num: "01",
+    tabLabel: "AI & Machine Learning",
+    title: "AI & MACHINE LEARNING",
+    subtitle: "Focus & Architecture",
+    description:
+      "Developing intelligent models, neural network architectures, and data-driven solutions with Python and modern ML algorithms to solve complex real-world problems.",
+    tags: [
+      "Python",
+      "Machine Learning",
+      "Deep Learning",
+      "Data Intelligence",
+      "Algorithmic Problem Solving",
+    ],
+  },
+  {
+    id: "full-stack",
+    num: "02",
+    tabLabel: "Full-Stack Development",
+    title: "FULL-STACK DEVELOPMENT",
+    subtitle: "Modern Web Engineering",
+    description:
+      "Building responsive, high-performance web applications and agentic systems with clean state management, modular component architecture, and seamless user experiences.",
+    tags: [
+      "React & Next.js",
+      "Agentic Web Dev",
+      "TypeScript",
+      "Tailwind CSS",
+      "Git & GitHub",
+    ],
+  },
+];
 
 const WhatIDo = () => {
-  const containerRef = useRef<(HTMLDivElement | null)[]>([]);
-  const setRef = (el: HTMLDivElement | null, index: number) => {
-    containerRef.current[index] = el;
-  };
-  useEffect(() => {
-    if (ScrollTrigger.isTouch) {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.classList.remove("what-noTouch");
-          container.addEventListener("click", () => handleClick(container));
-        }
-      });
-    }
-    return () => {
-      containerRef.current.forEach((container) => {
-        if (container) {
-          container.removeEventListener("click", () => handleClick(container));
-        }
-      });
-    };
-  }, []);
+  const [activeTab, setActiveTab] = useState<string>("ai-ml");
+  const current = disciplines.find((d) => d.id === activeTab) || disciplines[0];
+
   return (
     <div className="whatIDO" id="what-i-do">
       <div className="what-box">
@@ -34,108 +60,40 @@ const WhatIDo = () => {
           </div>
         </h2>
       </div>
-      <div className="what-box">
-        <div className="what-box-in">
-          <div className="what-border2">
-            <svg width="100%">
-              <line
-                x1="0"
-                y1="0"
-                x2="0"
-                y2="100%"
-                stroke="white"
-                strokeWidth="2"
-                strokeDasharray="7,7"
-              />
-              <line
-                x1="100%"
-                y1="0"
-                x2="100%"
-                y2="100%"
-                stroke="white"
-                strokeWidth="2"
-                strokeDasharray="7,7"
-              />
-            </svg>
-          </div>
-          <div
-            className="what-content what-noTouch"
-            ref={(el) => setRef(el, 0)}
-          >
-            <div className="what-border1">
-              <svg height="100%">
-                <line
-                  x1="0"
-                  y1="0"
-                  x2="100%"
-                  y2="0"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-                <line
-                  x1="0"
-                  y1="100%"
-                  x2="100%"
-                  y2="100%"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-              </svg>
-            </div>
-            <div className="what-corner"></div>
 
-            <div className="what-content-in">
-              <h3>AI & MACHINE LEARNING</h3>
-              <h4>Focus & Architecture</h4>
-              <p>
-                Developing intelligent models, neural network architectures, and data-driven solutions with Python and modern ML algorithms to solve complex real-world problems.
-              </p>
-              <h5>Skillset & tools</h5>
-              <div className="what-content-flex">
-                <div className="what-tags">Python</div>
-                <div className="what-tags">Machine Learning</div>
-                <div className="what-tags">Deep Learning</div>
-                <div className="what-tags">Data Intelligence</div>
-                <div className="what-tags">Algorithmic Problem Solving</div>
-              </div>
-              <div className="what-arrow"></div>
-            </div>
+      <div className="what-box">
+        <div className="what-tab-wrapper">
+          <div className="what-tab-bar" role="tablist" aria-label="Disciplines">
+            {disciplines.map((item) => {
+              const isActive = item.id === activeTab;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`what-tab-btn ${isActive ? "is-active" : ""}`}
+                  onClick={() => setActiveTab(item.id)}
+                  data-cursor="disable"
+                >
+                  <span className="what-tab-num">{item.num}</span>
+                  <span>{item.tabLabel}</span>
+                </button>
+              );
+            })}
           </div>
-          <div
-            className="what-content what-noTouch"
-            ref={(el) => setRef(el, 1)}
-          >
-            <div className="what-border1">
-              <svg height="100%">
-                <line
-                  x1="0"
-                  y1="100%"
-                  x2="100%"
-                  y2="100%"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeDasharray="6,6"
-                />
-              </svg>
-            </div>
-            <div className="what-corner"></div>
-            <div className="what-content-in">
-              <h3>FULL-STACK DEVELOPMENT</h3>
-              <h4>Modern Web Engineering</h4>
-              <p>
-                Building responsive, high-performance web applications and agentic systems with clean state management, modular component architecture, and seamless user experiences.
-              </p>
-              <h5>Skillset & tools</h5>
-              <div className="what-content-flex">
-                <div className="what-tags">React & Next.js</div>
-                <div className="what-tags">Agentic Web Dev</div>
-                <div className="what-tags">TypeScript</div>
-                <div className="what-tags">Tailwind CSS</div>
-                <div className="what-tags">Git & GitHub</div>
-              </div>
-              <div className="what-arrow"></div>
+
+          <div className="what-tab-panel" key={current.id}>
+            <span className="what-panel-sub">{current.subtitle}</span>
+            <h3>{current.title}</h3>
+            <p>{current.description}</p>
+            <h5>Skillset &amp; tools</h5>
+            <div className="what-content-flex">
+              {current.tags.map((tag) => (
+                <div className="what-tags" key={tag}>
+                  {tag}
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -145,18 +103,3 @@ const WhatIDo = () => {
 };
 
 export default WhatIDo;
-
-function handleClick(container: HTMLDivElement) {
-  container.classList.toggle("what-content-active");
-  container.classList.remove("what-sibling");
-  if (container.parentElement) {
-    const siblings = Array.from(container.parentElement.children);
-
-    siblings.forEach((sibling) => {
-      if (sibling !== container) {
-        sibling.classList.remove("what-content-active");
-        sibling.classList.toggle("what-sibling");
-      }
-    });
-  }
-}
