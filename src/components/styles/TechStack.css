@@ -322,20 +322,36 @@
 
 @media (max-width: 768px) {
   .tech-bento-section {
-    padding: 0 20px;
-    margin: 80px auto;
+    padding: 0 16px;
+    margin: 60px auto;
   }
   .neural-graph-stage {
-    height: 360px;
+    height: 320px;
+  }
+  .neural-core-hub {
+    width: 58px;
+    height: 58px;
+  }
+  .neural-core-icon {
+    font-size: 18px;
+  }
+  .neural-core-label {
+    font-size: 7px;
   }
   .neural-node {
-    padding: 6px 10px 6px 8px;
-    gap: 6px;
+    padding: 5px 9px 5px 7px;
+    gap: 5px;
   }
   .neural-node-name {
-    font-size: 11px;
+    font-size: 10.5px;
   }
   .neural-node-icon {
-    font-size: 15px;
+    font-size: 14px;
+  }
+  .neural-inspector-card {
+    padding: 20px;
+  }
+  .inspector-title {
+    font-size: 22px;
   }
 }

@@ -35,6 +35,9 @@ a.contact-social {
   font-size: 23px;
   margin: 0;
 }
+.contact-box a {
+  word-break: break-word;
+}
 .contact-box h2 > span {
   color: var(--accentColor);
 }
