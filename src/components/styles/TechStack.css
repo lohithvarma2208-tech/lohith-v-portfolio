@@ -32,17 +32,17 @@
   font-weight: 300;
 }
 
-.tech-pill-strip {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 14px;
+.tech-marquee-wrap {
+  width: 100%;
+  overflow: hidden;
+  padding: 8px 0;
 }
 
 .tech-pill-item {
   display: inline-flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 18px;
+  padding: 12px 20px;
   border-radius: 14px;
   background: rgba(18, 14, 24, 0.72);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -50,6 +50,10 @@
   -webkit-backdrop-filter: blur(14px);
   transition: transform 0.2s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
   cursor: default;
+}
+
+.tech-marquee-item {
+  margin-right: 18px;
 }
 
 .tech-pill-item:hover {
@@ -77,6 +81,7 @@
   font-weight: 500;
   color: #fff;
   line-height: 1.2;
+  white-space: nowrap;
 }
 
 .tech-pill-tag {
@@ -85,6 +90,7 @@
   text-transform: uppercase;
   color: #8f889c;
   font-family: "JetBrains Mono", monospace;
+  white-space: nowrap;
 }
 
 @media (max-width: 768px) {
@@ -92,15 +98,12 @@
     padding: 0 16px;
     margin: 60px auto;
   }
-  .tech-pill-strip {
+  .tech-pill-item {
+    padding: 10px 16px;
     gap: 10px;
   }
-  .tech-pill-item {
-    padding: 10px 14px;
-    gap: 10px;
-    flex: 1 1 calc(50% - 10px);
-    min-width: 145px;
-    box-sizing: border-box;
+  .tech-marquee-item {
+    margin-right: 12px;
   }
   .tech-pill-name {
     font-size: 13px;

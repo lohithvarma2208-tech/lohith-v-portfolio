@@ -1,4 +1,5 @@
 import React from "react";
+import Marquee from "react-fast-marquee";
 import { FaPython, FaJava, FaGitAlt } from "react-icons/fa6";
 import { TbRobot } from "react-icons/tb";
 import "./styles/TechStack.css";
@@ -54,25 +55,34 @@ const TechStack = () => {
         </p>
       </div>
 
-      <div className="tech-pill-strip">
-        {skills.map((skill) => (
-          <div
-            key={skill.name}
-            className="tech-pill-item"
-            style={{
-              ["--pill-color" as string]: skill.color,
-              ["--pill-glow" as string]: skill.glow,
-            }}
-          >
-            <span className="tech-pill-icon" style={{ color: skill.color }}>
-              {skill.icon}
-            </span>
-            <div className="tech-pill-text">
-              <span className="tech-pill-name">{skill.name}</span>
-              <span className="tech-pill-tag">{skill.tag}</span>
+      <div className="tech-marquee-wrap">
+        <Marquee
+          speed={45}
+          pauseOnHover={true}
+          autoFill={true}
+          gradient={true}
+          gradientColor="#0b080c"
+          gradientWidth={80}
+        >
+          {skills.map((skill) => (
+            <div
+              key={skill.name}
+              className="tech-pill-item tech-marquee-item"
+              style={{
+                ["--pill-color" as string]: skill.color,
+                ["--pill-glow" as string]: skill.glow,
+              }}
+            >
+              <span className="tech-pill-icon" style={{ color: skill.color }}>
+                {skill.icon}
+              </span>
+              <div className="tech-pill-text">
+                <span className="tech-pill-name">{skill.name}</span>
+                <span className="tech-pill-tag">{skill.tag}</span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </Marquee>
       </div>
     </div>
   );
