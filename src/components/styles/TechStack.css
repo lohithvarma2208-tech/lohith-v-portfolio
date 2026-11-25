@@ -63,10 +63,10 @@
 /* Bento Grid */
 .tech-bento-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
   perspective: 1200px;
-  margin-bottom: 50px;
+  margin-bottom: 32px;
 }
 
 /* 3D Glassmorphic Card */
@@ -75,9 +75,9 @@
   background: rgba(18, 14, 24, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-radius: 20px;
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 32px;
+  padding: 20px;
   box-sizing: border-box;
   cursor: pointer;
   transform-style: preserve-3d;
@@ -138,19 +138,19 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 .skill-icon-wrapper {
-  font-size: 38px;
+  font-size: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: 44px;
+  height: 44px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
+  border-radius: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -182,35 +182,35 @@
 }
 
 .skill-info-block {
-  margin-bottom: 24px;
+  margin-bottom: 14px;
 }
 
 .skill-title {
-  font-size: 26px;
-  margin: 0 0 8px 0;
+  font-size: 20px;
+  margin: 0 0 6px 0;
   font-weight: 600;
   color: #fff;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 
 .skill-level-pill {
   display: inline-block;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3px 10px;
+  padding: 2px 8px;
   border-radius: 6px;
-  font-size: 11px;
+  font-size: 10px;
   color: #bbb;
   letter-spacing: 1px;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   font-family: "JetBrains Mono", monospace;
 }
 
 .skill-desc {
   color: #a0a0a0;
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: 13px;
+  line-height: 1.45;
   margin: 0;
   font-weight: 300;
 }
@@ -218,17 +218,17 @@
 .skill-tag-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   margin-top: auto;
-  padding-top: 16px;
+  padding-top: 8px;
 }
 
 .skill-tag {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: 6px;
-  font-size: 11px;
+  font-size: 10px;
   color: #888;
   font-family: "JetBrains Mono", monospace;
   transition: all 0.2s ease;
