@@ -22,14 +22,6 @@ const projects: ProjectItem[] = [
   },
   {
     id: "02",
-    name: "AI & ML Labs",
-    category: "Intelligent Systems & Models",
-    tools: ["Python", "Machine Learning", "Agentic AI"],
-    link: "https://github.com/lohithvarma2208-tech",
-    image: "/images/aiml-labs.jpg",
-  },
-  {
-    id: "03",
     name: "Algorithmic Practice",
     category: "Data Structures & Systems",
     tools: ["Java", "Python", "Algorithms"],
