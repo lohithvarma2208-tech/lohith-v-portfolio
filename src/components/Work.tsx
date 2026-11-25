@@ -20,15 +20,6 @@ const projects: ProjectItem[] = [
     tools: ["TypeScript", "React", "Tailwind CSS"],
     link: "https://github.com/lohithvarma2208-tech/vss-75",
   },
-  {
-    id: "02",
-    name: "Algorithmic Practice",
-    category: "Data Structures & Systems",
-    description:
-      "Structured problem-solving repository covering core algorithms, complexity, and system patterns.",
-    tools: ["Java", "Python", "Algorithms"],
-    link: "https://github.com/lohithvarma2208-tech",
-  },
 ];
 
 const Work = () => {
@@ -40,7 +31,7 @@ const Work = () => {
             Featured <span>Work</span>
           </h2>
           <p className="work-subtitle">
-            Selected builds across full-stack web and core algorithms.
+            Selected build in full-stack web &amp; academic spaces.
           </p>
         </div>
 
